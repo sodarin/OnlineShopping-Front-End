@@ -32,6 +32,9 @@
       <div *ngFor="let address of addressList" nz-col nzSpan="6">
         <app-address-item [item]="address" (deleteEvent)="deleteAddr($event)"></app-address-item>
       </div>
+      <div *ngIf="addressList.length < 8" nz-col nzSpan="6">
+        <app-new-address-button (newAddrEvent)="addNewAddr($event)"></app-new-address-button>
+      </div>
     </div>
   </div>
 </div>

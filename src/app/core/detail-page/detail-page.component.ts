@@ -6,6 +6,8 @@ import {CellphoneService} from '../../service/cellphone/cellphone.service';
 import {MouseService} from '../../service/mouse/mouse.service';
 import {EarphoneService} from '../../service/earphone/earphone.service';
 import {KeyboardService} from '../../service/keyboard/keyboard.service';
+import {LoginService} from '../../service/login/login.service';
+import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-detail-page',
@@ -18,14 +20,20 @@ export class DetailPageComponent implements OnInit {
 
   number: number = 1;
 
+  isLogin: boolean;
+
   constructor(
     private routeInfo: ActivatedRoute,
     private computerService$: ComputerService,
     private cellphoneService$: CellphoneService,
     private mouseService$: MouseService,
     private earphoneService$: EarphoneService,
-    private keyboardService$: KeyboardService
-  ) { }
+    private keyboardService$: KeyboardService,
+    private loginService$: LoginService,
+    private _message: NzMessageService,
+  ) {
+    this.loginService$.loginStatus.subscribe(value => this.isLogin = value)
+  }
 
   ngOnInit() {
     let itemId = this.routeInfo.snapshot.params['id'];
@@ -36,6 +44,14 @@ export class DetailPageComponent implements OnInit {
     if (itemId.startsWith('20')){
       this.item = this.cellphoneService$.getCellphoneById(itemId);
       console.log(this.item);
+    }
+  }
+
+  addToShoppingCart() {
+    if (!this.isLogin) {
+      this._message.error('请先登录');
+    } else {
+      this._message.success('成功添加入购物车');
     }
   }
 

@@ -9,9 +9,10 @@ import { DetailPageComponent } from './detail-page/detail-page.component';
 import { BackTopComponent } from './back-top/back-top.component';
 import { AddressItemComponent } from './address-item/address-item.component';
 import { AddrModalComponent } from './modal/addr-modal/addr-modal.component';
+import { NewAddressButtonComponent } from './new-address-button/new-address-button.component';
 
 @NgModule({
-  declarations: [LoginModalComponent, ProductItemComponent, RegisterModalComponent, DetailPageComponent, BackTopComponent, AddressItemComponent, AddrModalComponent],
+  declarations: [LoginModalComponent, ProductItemComponent, RegisterModalComponent, DetailPageComponent, BackTopComponent, AddressItemComponent, AddrModalComponent, NewAddressButtonComponent],
   imports: [
     CommonModule,
     NgZorroAntdModule,
@@ -25,7 +26,8 @@ import { AddrModalComponent } from './modal/addr-modal/addr-modal.component';
     DetailPageComponent,
     BackTopComponent,
     AddressItemComponent,
-    AddrModalComponent
+    AddrModalComponent,
+    NewAddressButtonComponent
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
 })

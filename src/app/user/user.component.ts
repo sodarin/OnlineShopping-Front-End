@@ -69,4 +69,8 @@ export class UserComponent implements OnInit {
     this.addressList = this.addressList.filter(item => item.addressId !== addrId);
   }
 
+  addNewAddr(addr: Address) {
+    this.addressList.push(addr)
+  }
+
 }

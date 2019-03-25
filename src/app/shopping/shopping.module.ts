@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { ComputerComponent } from './computer/computer.component';
 import { CellphoneComponent } from './cellphone/cellphone.component';
 import { MouseComponent } from './mouse/mouse.component';
@@ -12,7 +13,9 @@ import { CartComponent } from './cart/cart.component';
   declarations: [ComputerComponent, CellphoneComponent, MouseComponent, KeyboardComponent, HeadphonesComponent, CartComponent],
   imports: [
     CommonModule,
-    ShoppingRoutingModule
-  ]
+    ShoppingRoutingModule,
+    NgZorroAntdModule
+  ],
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
 })
 export class ShoppingModule { }

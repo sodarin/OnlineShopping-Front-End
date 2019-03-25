@@ -1,0 +1,32 @@
+@light-border-color: rgba(24,144,255, .6);
+@light-background-color: rgba(24, 144, 255, .2);
+@dark-border-color: rgba(24,144,255, .8);
+@dark-background-color: rgba(24, 144, 255, .4);
+
+
+.address-block {
+  border: 5px dashed @light-border-color;
+  margin-bottom: 20px;
+  background-color: @light-background-color;
+  min-height: 200px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.address-block:hover {
+  border: 5px dashed @dark-border-color;
+  background-color: @dark-background-color;
+  .add-button {
+    color: @dark-border-color;
+    font-size: 140px;
+  }
+  cursor: pointer;
+}
+
+.add-button {
+  font-size: 120px;
+  color: rgba(24,144,255, .5);
+}

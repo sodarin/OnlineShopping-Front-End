@@ -1,3 +1,33 @@
-<p>
-  addr-modal works!
-</p>
+<form nz-form [formGroup]="addrEditForm">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="text" nz-input formControlName="name" placeholder="请输入收件人姓名">
+      </nz-input-group>
+      <nz-form-explain *ngIf="addrEditForm.get('name').dirty && addrEditForm.get('name').errors">收件人姓名不能为空</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="number" nz-input formControlName="phone_no" placeholder="请输入收件人手机号码">
+      </nz-input-group>
+      <nz-form-explain *ngIf="addrEditForm.get('phone_no').dirty && addrEditForm.get('phone_no').errors">收件人手机号码不能为空</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="number" nz-input formControlName="postcode" placeholder="请输入邮政编码">
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <textarea type="text" nz-input formControlName="addr" placeholder="请输入收件人地址"></textarea>
+      </nz-input-group>
+      <nz-form-explain *ngIf="addrEditForm.get('addr').dirty && addrEditForm.get('addr').errors">收件人地址不能为空</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -20,7 +20,7 @@
         <span>购买数量：</span><nz-input-number [nzSize]="'large'" [(ngModel)]="number" [nzMin]="1" [nzMax]="item?.inventory" [nzStep]="1"></nz-input-number>
       </div>
       <div class="purchase-button">
-        <button nz-button><i nz-icon type="shopping-cart"></i>加入购物车</button>
+        <button (click)="addToShoppingCart()" nz-button><i nz-icon type="shopping-cart"></i>加入购物车</button>
       </div>
     </div>
   </div>
