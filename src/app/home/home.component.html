@@ -1,0 +1,16 @@
+<div class="home-page">
+  <h1 class="header">最新上货</h1>
+  <div *ngFor="let type of displayTypes">
+    <nz-divider [nzText]="dividerText" nzOrientation="left">
+      <ng-template #dividerText>
+        <span class="dividerText">{{type.name}}</span>
+      </ng-template>
+    </nz-divider>
+    <div class="display-row" nz-row nzGutter="16">
+      <div *ngFor="let listItem of type.list">
+        <app-product-item nz-col class="gutter-row" nzSpan="6" [item]="listItem"></app-product-item>
+      </div>
+    </div>
+  </div>
+</div>
+<app-back-top></app-back-top>

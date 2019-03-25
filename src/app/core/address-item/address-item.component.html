@@ -1,0 +1,16 @@
+<div class="address-block">
+  <div class="client-basic-info">
+    <span class="client-name">{{item.client_name}}</span>
+    <span class="phone-no">{{item.phone_no}}</span>
+  </div>
+  <div class="postcode">
+    <span>邮政编码： {{item.postcode}}</span>
+  </div>
+  <div class="detail-addr">
+    <span>{{item.detailAddr}}</span>
+  </div>
+  <div class="action-button">
+    <i nz-icon type="edit" class="edit-icon" (click)="edit(item)"></i>
+    <i nz-icon type="delete" class="delete-icon" nz-popconfirm nzTitle="确认删除？" (nzOnConfirm)="delete(item.addressId)"></i>
+  </div>
+</div>

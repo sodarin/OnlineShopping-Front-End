@@ -1,0 +1,63 @@
+.header-link() {
+  font-size: 22px;
+  color: #1890ff;
+}
+
+:host ::ng-deep .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  -webkit-transition: color .3s;
+  -moz-transition: color .3s;
+  -ms-transition: color .3s;
+  -o-transition: color .3s;
+  transition: color .3s;
+}
+
+:host ::ng-deep .trigger:hover {
+  color: #1890ff;
+}
+
+:host ::ng-deep .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, .2);
+  margin: 16px;
+}
+
+nz-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
+}
+
+.header-title {
+  color: rgba(0, 0, 0, .5);
+  font-size: 22px;
+  cursor: pointer;
+  -webkit-transition: color .3s;
+  -moz-transition: color .3s;
+  -ms-transition: color .3s;
+  -o-transition: color .3s;
+  transition: color .3s;
+}
+
+.header-title:hover {
+  color: rgba(0, 0, 0, .7);
+}
+
+.login-link, .register-link {
+  .header-link();
+}
+
+.header-link-group {
+  margin-right: 50px;
+  .header-link();
+}
+
+
+.user-link {
+  margin-right: 54px;
+  cursor: pointer;
+}

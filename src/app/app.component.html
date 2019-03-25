@@ -1,21 +1,49 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<router-outlet></router-outlet>
+<nz-layout class="layout">
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
+    <div class="logo">
+    </div>
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu>
+        <span title><i nz-icon type="shopping-cart"></i><span class="nav-text">浏览商品</span></span>
+        <ul>
+          <li nz-menu-item (click)="navigateToNewPage('/shopping/computer')">电脑</li>
+          <li nz-menu-item (click)="navigateToNewPage('/shopping/cellphone')">手机</li>
+          <li nz-menu-item (click)="navigateToNewPage('/shopping/keyboard')">键盘</li>
+          <li nz-menu-item (click)="navigateToNewPage('/shopping/mouse')">鼠标</li>
+          <li nz-menu-item (click)="navigateToNewPage('/shopping/headphones')">耳机</li>
+        </ul>
+      </li>
+      <li nz-menu-item (click)="navigateToNewPage('/recycle')">
+        <span><i nz-icon type="dollar"></i><span class="nav-text">二手回收</span></span>
+      </li>
+      <li nz-menu-item (click)="navigateToNewPage('/forum')"><span><i nz-icon type="book"></i><span class="nav-text">分享论坛</span></span></li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header style="background: #ffffff; padding: 0;">
+      <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold': 'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+      <div class="empty-space"></div>
+      <span class="header-title" (click)="navigateToNewPage('')">网 购 平 台</span>
+      <div class="empty-space"></div>
+      <span *ngIf="!isLogin" class="header-link-group">
+        <a class="login-link" (click)="login()">登录</a>/<a class="register-link" (click)="register()">注册</a>
+      </span>
+      <nz-avatar class="user-link" *ngIf="isLogin" nzSize="large" nz-popover [nzContent]="userList" nzIcon="user"></nz-avatar>
+    </nz-header>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer style="text-align: center;">Final Project @2019 Implement By Angular</nz-footer>
+  </nz-layout>
+</nz-layout>
+<ng-template #trigger>
+  <i nz-icon type="up"></i>
+</ng-template>
+<ng-template #userList>
+  <ul style="width: 100px" nz-menu [nzMode]="'inline'">
+    <li nz-menu-item (click)="navigateToNewPage('/user')">个人中心</li>
+    <li nz-menu-item (click)="navigateToNewPage('/shopping/cart')">购物车</li>
+    <li nz-menu-item (click)="navigateToNewPage('/order')">我的订单</li>
+    <li nz-menu-item (click)="logout()">安全退出</li>
+  </ul>
+</ng-template>

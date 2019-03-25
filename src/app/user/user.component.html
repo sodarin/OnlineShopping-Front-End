@@ -1,0 +1,37 @@
+<div class="user-page">
+  <div>
+    <h1>个人信息管理</h1>
+  </div>
+  <nz-list [nzDataSource]="data" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+    <ng-template #item let-item>
+      <nz-list-item [nzActions]="[editAction]">
+        <ng-template #editAction>
+          <i class="edit-icon" *ngIf="!item.isEditing" nz-icon type="edit" (click)="edit(item)"></i>
+          <i class="confirm-icon" *ngIf="item.isEditing" nz-popconfirm nzTitle="确认修改？" (nzOnConfirm)="confirm(item)" (nzOnCancel)="cancel(item)" nz-icon type="check"></i>
+        </ng-template>
+        <nz-list-item-meta [nzTitle]="title" [nzDescription]="content">
+          <ng-template #title>
+            <a class="item-title">{{item.title}}</a>
+          </ng-template>
+          <ng-template #content>
+            <span class="item-content" *ngIf="!item.isEditing">{{item.content}}</span>
+            <label>
+              <textarea [(ngModel)]="item.text" autofocus="autofocus" *ngIf="item.isEditing" nz-input nzAutosize>{{item.content}}</textarea>
+            </label>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+  <nz-divider></nz-divider>
+  <div>
+    <h1>地址管理</h1>
+  </div>
+  <div class="address-list">
+    <div nz-row nzGutter="16">
+      <div *ngFor="let address of addressList" nz-col nzSpan="6">
+        <app-address-item [item]="address" (deleteEvent)="deleteAddr($event)"></app-address-item>
+      </div>
+    </div>
+  </div>
+</div>

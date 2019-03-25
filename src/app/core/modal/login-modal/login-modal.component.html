@@ -1,0 +1,19 @@
+<form nz-form [formGroup]="loginForm">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="text" nz-input formControlName="name" placeholder="请输入用户名">
+      </nz-input-group>
+      <nz-form-explain *ngIf="loginForm.get('name').dirty && loginForm.get('name').errors">用户名不能为空</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="password" nz-input formControlName="password" placeholder="请输入密码">
+      </nz-input-group>
+      <nz-form-explain *ngIf="loginForm.get('password').dirty && loginForm.get('password').errors">密码不能为空</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+</form>

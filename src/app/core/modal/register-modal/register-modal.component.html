@@ -1,0 +1,38 @@
+<form nz-form [formGroup]="registerForm">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="text" nz-input formControlName="name" placeholder="请输入用户名">
+      </nz-input-group>
+      <nz-form-explain *ngIf="registerForm.get('name').dirty && registerForm.get('name').errors">用户名不能为空</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="password" nz-input formControlName="password" placeholder="请输入密码">
+      </nz-input-group>
+      <nz-form-explain *ngIf="registerForm.get('password').dirty && registerForm.get('password').errors">请输入密码</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="password" nz-input formControlName="confirmPassword" placeholder="请确认密码">
+      </nz-input-group>
+      <nz-form-explain *ngIf="registerForm.get('confirmPassword').dirty && registerForm.get('confirmPassword').errors">请确认密码</nz-form-explain>
+      <nz-form-explain style="color: red;" *ngIf="registerForm.get('confirmPassword').dirty && registerForm.get('confirmPassword').value != registerForm.get('password').value && !( registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').dirty )">两次输入密码不一致</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group>
+        <input type="email" nz-input formControlName="email" placeholder="请输入email">
+      </nz-input-group>
+      <nz-form-explain *ngIf="registerForm.get('email').dirty && registerForm.get('email').errors">请输入email</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+</form>

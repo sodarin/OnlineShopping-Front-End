@@ -1,0 +1,33 @@
+<div class="detail-page">
+  <div nzType="flex" nzJustify="space-around" class="item-info" nz-row nzGutter="16">
+    <div class="item-image" nz-col nzSpan="9">
+      <img [src]="item?.img" [alt]="item?.name"/>
+    </div>
+    <div class="item-detail" nz-col nzSpan="15">
+      <div>
+        <h1 class="item-title">{{item?.name}}{{item?.desc}}</h1>
+      </div>
+      <div class="highlight">
+        <span>{{item?.advantage}}</span>
+      </div>
+      <div class="item-price">
+        <span>价格： </span><span>￥{{item?.price}}</span>
+      </div>
+      <div class="item-inventory">
+        <span>库存: </span><span>{{item?.inventory}}</span>
+      </div>
+      <div class="purchase-num">
+        <span>购买数量：</span><nz-input-number [nzSize]="'large'" [(ngModel)]="number" [nzMin]="1" [nzMax]="item?.inventory" [nzStep]="1"></nz-input-number>
+      </div>
+      <div class="purchase-button">
+        <button nz-button><i nz-icon type="shopping-cart"></i>加入购物车</button>
+      </div>
+    </div>
+  </div>
+
+  <nz-tabset>
+    <nz-tab nzTitle="商品详情">
+      {{item?.detail}}
+    </nz-tab>
+  </nz-tabset>
+</div>
