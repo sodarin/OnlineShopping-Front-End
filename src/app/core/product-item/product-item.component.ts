@@ -27,12 +27,12 @@ export class ProductItemComponent implements OnInit {
 
   ngOnInit() {}
 
-  stopPropagation() {
+  static stopPropagation() {
     event.stopPropagation();
   }
 
   addToShoppingCart() {
-    this.stopPropagation();
+    ProductItemComponent.stopPropagation();
     if (!this.isLogin) {
       this._message.error('请先登录');
     } else {

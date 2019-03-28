@@ -14,8 +14,8 @@ export class CartComponent implements OnInit {
   user: Client;
   addressList: Address[];
 
-  selectAddr: string;
-  formerSelectAddr: string;
+  selectAddrId: string;
+  selectResult = {name: '', addr: ''};
 
   constructor(
     private loginService$: LoginService,
@@ -25,16 +25,39 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.user = this.loginService$.getUserById();
     this.addressList = this.addressService$.getAddressListByClientId(this.user.id);
-    this.selectAddr = this.addressList[0].addressId;
-    this.formerSelectAddr = this.selectAddr;
+    this.selectAddrId = this.addressList[0].addressId;
+    this.changeSelectResult()
   }
 
-  deleteAddr(addrId: string) {
+  detectAddrDelete(addrId: string) {
     this.addressList = this.addressList.filter(item => item.addressId !== addrId);
+    if (addrId == this.selectAddrId) {
+      this.selectAddrId = this.addressList[0].addressId;
+      this.changeSelectResult()
+    }
+  }
+
+  detectAddrModify(addr: Address) {
+    this.addressList.forEach((item, index) => {
+      if (item.addressId == addr.addressId){
+        this.addressList[index] = addr;
+      }
+    });
+    this.changeSelectResult()
   }
 
   addNewAddr(addr: Address) {
     this.addressList.push(addr)
+  }
+
+  changeSelectResult() {
+    let addr = this.addressList.filter(item => item.addressId === this.selectAddrId)[0];
+    this.selectResult.name = addr.client_name;
+    this.selectResult.addr = addr.detailAddr
+  }
+
+  detectSelectChange() {
+    this.changeSelectResult()
   }
 
 }

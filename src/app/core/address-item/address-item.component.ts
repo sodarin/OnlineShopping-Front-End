@@ -17,6 +17,8 @@ export class AddressItemComponent implements OnInit {
 
   @Output()
   deleteEvent = new EventEmitter<string>();
+  @Output()
+  modifyItem = new EventEmitter<Address>();
 
 
 
@@ -46,6 +48,7 @@ export class AddressItemComponent implements OnInit {
       if (result) {
        this.item = result;
        this._message.success('修改地址成功');
+       this.modifyItem.emit(this.item);
       }
     })
   }
