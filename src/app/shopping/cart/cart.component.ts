@@ -8,6 +8,7 @@ import {ShoppingCartService} from '../../service/shoppingCart/shopping-cart.serv
 import {Computer} from '../../model/computer.model';
 import {Cellphone} from '../../model/cellphone.model';
 import {Router} from '@angular/router';
+import {NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-cart',
@@ -15,6 +16,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./cart.component.less']
 })
 export class CartComponent implements OnInit {
+
+  confirmModal: NzModalRef;
 
   user: Client;
   addressList: Address[];
@@ -43,6 +46,8 @@ export class CartComponent implements OnInit {
     private loginService$: LoginService,
     private addressService$: AddressService,
     private shoppingCartService$: ShoppingCartService,
+    private _modal: NzModalService,
+    private _message: NzMessageService,
     private router: Router
   ) { }
 
@@ -145,7 +150,16 @@ export class CartComponent implements OnInit {
   }
 
   purchase() {
-
+    this.confirmModal = this._modal.confirm({
+      nzTitle: '确认购买？',
+      nzContent: `这笔订单收件人为${this.selectResult.name}，收件地址为${this.selectResult.addr}，总价为￥${this.totalPrice}`,
+      nzOkText: '买意已决',
+      nzCancelText: '我再想想',
+      nzOnOk: () => {
+        console.log();
+        this._message.success('下单成功！');
+      }
+    })
   }
 
 }
