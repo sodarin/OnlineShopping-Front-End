@@ -12,9 +12,13 @@ export class AddressItemComponent implements OnInit {
 
   @Input()
   item: Address;
+  @Input()
+  activeClass: boolean;
 
   @Output()
   deleteEvent = new EventEmitter<string>();
+
+
 
   constructor(
     private _modal: NzModalService,
@@ -22,7 +26,9 @@ export class AddressItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
   }
+
 
   edit(item: any): void {
     const modal = this._modal.create({

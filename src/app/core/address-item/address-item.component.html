@@ -1,4 +1,7 @@
-<div class="address-block">
+<div [class.active]="activeClass" class="address-block">
+  <!--<div class="addr-select">-->
+  <!--<i nz-icon type="check" *ngIf="selected"></i>-->
+  <!--</div>-->
   <div class="client-basic-info">
     <span class="client-name">{{item.client_name}}</span>
     <span class="phone-no">{{item.phone_no}}</span>
@@ -14,3 +17,7 @@
     <i nz-icon type="delete" class="delete-icon" nz-popconfirm nzTitle="确认删除？" (nzOnConfirm)="delete(item.addressId)"></i>
   </div>
 </div>
+
+
+
+

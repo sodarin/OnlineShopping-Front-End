@@ -14,6 +14,9 @@ export class CartComponent implements OnInit {
   user: Client;
   addressList: Address[];
 
+  selectAddr: string;
+  formerSelectAddr: string;
+
   constructor(
     private loginService$: LoginService,
     private addressService$: AddressService
@@ -22,6 +25,16 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.user = this.loginService$.getUserById();
     this.addressList = this.addressService$.getAddressListByClientId(this.user.id);
+    this.selectAddr = this.addressList[0].addressId;
+    this.formerSelectAddr = this.selectAddr;
+  }
+
+  deleteAddr(addrId: string) {
+    this.addressList = this.addressList.filter(item => item.addressId !== addrId);
+  }
+
+  addNewAddr(addr: Address) {
+    this.addressList.push(addr)
   }
 
 }

@@ -1,3 +1,6 @@
+@dark-border-color: rgba(24,144,255, .8);
+@dark-background-color: rgba(24, 144, 255, .4);
+
 .shopping-cart-page {
   margin: 20px auto 0;
   background-color: white;
@@ -8,4 +11,21 @@
 
 .page-title > i {
   margin-right: 10px;
+}
+
+.active {
+  background-color: @dark-background-color;
+}
+
+.select-icon {
+  color: rgba(24,144,255);
+  font-size: 140px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

@@ -14,7 +14,7 @@
   padding: 5px;
 }
 
-.address-block:hover {
+.address-block:hover, .address-block.active {
   border: 5px dashed @dark-border-color;
   background-color: @dark-background-color;
   .client-basic-info {
@@ -30,6 +30,11 @@
     color: @primary-font-color;
   }
 }
+
+//.addr-select {
+//  color: @dark-border-color;
+//  font-size: 140px;
+//}
 
 .client-basic-info {
   display: flex;

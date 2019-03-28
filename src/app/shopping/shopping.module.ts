@@ -8,13 +8,18 @@ import { KeyboardComponent } from './keyboard/keyboard.component';
 import { HeadphonesComponent } from './headphones/headphones.component';
 import {ShoppingRoutingModule} from './shopping-routing.module';
 import { CartComponent } from './cart/cart.component';
+import {CoreModule} from '../core/core.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [ComputerComponent, CellphoneComponent, MouseComponent, KeyboardComponent, HeadphonesComponent, CartComponent],
   imports: [
     CommonModule,
+    CoreModule,
     ShoppingRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
 })

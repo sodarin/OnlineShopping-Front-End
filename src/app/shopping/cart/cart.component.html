@@ -2,4 +2,21 @@
   <div>
     <h1 class="page-title"><i nz-icon type="shopping-cart"></i>购物车</h1>
   </div>
+  <div class="addr-select-list">
+    <span class="zone-title">选择地址</span>
+    <div nz-row nzGutter="16">
+      <form>
+        <div *ngFor="let address of addressList" nz-col nzSpan="6">
+          <label>
+            <app-address-item [activeClass]="selectAddr == address.addressId" [item]="address" (deleteEvent)="deleteAddr($event)"></app-address-item>
+            <i class="select-icon" nz-icon type="check" *ngIf="selectAddr == address.addressId"></i>
+            <input type="radio" [name]="address.clientId" [id]="address.addressId" [value]="address.addressId" [(ngModel)]="selectAddr">
+          </label>
+        </div>
+      </form>
+      <div *ngIf="addressList.length < 8" nz-col nzSpan="6">
+        <app-new-address-button (newAddrEvent)="addNewAddr($event)"></app-new-address-button>
+      </div>
+    </div>
+  </div>
 </div>
