@@ -49,10 +49,13 @@
         <td (click)="turnToDetailPage(data)" class="detail-page-link"><img [src]="data.imgUrl" [alt]="data.name"></td>
         <td (click)="turnToDetailPage(data)" class="detail-page-link">{{data.name}}</td>
         <td>￥{{data.itemPrice}}</td>
-        <td><nz-input-number [(ngModel)]="data.item_num" [nzMin]="1" [nzStep]="1"></nz-input-number></td>
+        <td><nz-input-number [(ngModel)]="data.item_num" [nzMin]="1" [nzStep]="1" (ngModelChange)="changeTotalPrice()"></nz-input-number></td>
         <td>￥{{data.item_num * data.itemPrice}}</td>
       </tr>
     </tbody>
   </nz-table>
+  <div class="purchase-button">
+    <button (click)="purchase()" nz-button>提交订单<span *ngIf="totalPrice > 0">:￥{{totalPrice}}</span></button>
+  </div>
 </div>
 <app-back-top></app-back-top>

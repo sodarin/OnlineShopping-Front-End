@@ -36,6 +36,8 @@ export class CartComponent implements OnInit {
 
   pageIndex = 1;
 
+  totalPrice: number = 0;
+
 
   constructor(
     private loginService$: LoginService,
@@ -89,7 +91,10 @@ export class CartComponent implements OnInit {
 
   //购物车商品选择
   checkAll(value: boolean) {
-    this.displayData.forEach(item => this.mapofCheckedId[item.id] = value);
+    this.displayData.forEach(item => {
+      this.mapofCheckedId[item.id] = value;
+      this.totalPrice += item.item_num * item.itemPrice
+    });
     this.refreshStatus();
   }
 
@@ -97,6 +102,7 @@ export class CartComponent implements OnInit {
     this.isAllDataChecked = this.displayData.every(item => this.mapofCheckedId[item.id]);
     this.isIndeterminate =
       this.displayData.some(item => this.mapofCheckedId[item.id]) && !this.isAllDataChecked;
+    this.calculateTotalPrice()
   }
 
   //页码变化改变显示数据
@@ -123,6 +129,23 @@ export class CartComponent implements OnInit {
   //跳转到详情页面
   turnToDetailPage(data: any) {
     this.router.navigateByUrl(`/detail/${data.itemId}`)
+  }
+
+  calculateTotalPrice() {
+    this.totalPrice = 0;
+    this.displayData.forEach(item => {
+      if (this.mapofCheckedId[item.id]) {
+        this.totalPrice += item.item_num * item.itemPrice;
+      }
+    })
+  }
+
+  changeTotalPrice() {
+    this.calculateTotalPrice()
+  }
+
+  purchase() {
+
   }
 
 }
