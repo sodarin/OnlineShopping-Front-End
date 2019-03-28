@@ -23,6 +23,7 @@ import {CellphoneService} from './service/cellphone/cellphone.service';
 import {ComputerService} from './service/computer/computer.service';
 import {AddressService} from './service/address/address.service';
 import {AddrModalComponent} from './core/modal/addr-modal/addr-modal.component';
+import {ShoppingCartService} from './service/shoppingCart/shopping-cart.service';
 
 
 registerLocaleData(en);
@@ -52,7 +53,8 @@ registerLocaleData(en);
     LoginService,
     CellphoneService,
     ComputerService,
-    AddressService
+    AddressService,
+    ShoppingCartService
   ],
   entryComponents: [
     LoginModalComponent,
