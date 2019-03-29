@@ -24,6 +24,7 @@ import {ComputerService} from './service/computer/computer.service';
 import {AddressService} from './service/address/address.service';
 import {AddrModalComponent} from './core/modal/addr-modal/addr-modal.component';
 import {ShoppingCartService} from './service/shoppingCart/shopping-cart.service';
+import {OrderDetailComponent} from './core/modal/order-detail/order-detail.component';
 
 
 registerLocaleData(en);
@@ -59,7 +60,8 @@ registerLocaleData(en);
   entryComponents: [
     LoginModalComponent,
     RegisterModalComponent,
-    AddrModalComponent
+    AddrModalComponent,
+    OrderDetailComponent
   ],
   bootstrap: [AppComponent]
 })

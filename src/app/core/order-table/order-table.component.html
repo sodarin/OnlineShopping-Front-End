@@ -1,0 +1,35 @@
+<nz-table
+  #orderItems
+  [nzData]="displayData"
+  [nzFrontPagination]="false"
+  [nzTotal]="orders.length"
+  [nzPageSize]="8"
+  [(nzPageIndex)]="pageIndex"
+  (nzPageIndexChange)="searchData()">
+  <thead>
+  <tr>
+    <th>订单编号</th>
+    <th></th>
+    <th>总价</th>
+    <th>订单状态</th>
+    <th>交易时间</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of orderItems.data">
+    <td>{{data.id}}</td>
+    <td style="width: 300px;">
+      <div nz-row>
+        <div *ngFor="let orderItem of data.orderItems" nz-col nzSpan="8">
+          <img [src]="orderItem.itemImg">
+        </div>
+      </div>
+    </td>
+    <td>￥{{data.price}}</td>
+    <td>{{data.status}}</td>
+    <td>{{data.orderTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+    <td class="operation"><i nz-tooltip nzTitle="申请退款" nz-icon *ngIf="data.status == '已完成'" type="dollar" (click)="refundRequested(data)"></i><i nz-tooltip nzTitle="查看订单详情" nz-icon type="file-search" (click)="showOrderDetail(data)"></i></td>
+  </tr>
+  </tbody>
+</nz-table>
