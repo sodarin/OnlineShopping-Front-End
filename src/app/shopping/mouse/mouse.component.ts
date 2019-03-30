@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Mouse} from '../../model/mouse.model';
+import {MouseService} from '../../service/mouse/mouse.service';
 
 @Component({
   selector: 'app-mouse',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MouseComponent implements OnInit {
 
-  constructor() { }
+  mouseList: Mouse[];
+
+  constructor(
+    private mouseService$: MouseService
+  ) { }
 
   ngOnInit() {
+    this.mouseList = this.mouseService$.getMouseList()
   }
 
 }

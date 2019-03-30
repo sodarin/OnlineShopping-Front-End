@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Earphone} from '../../model/earphone.model';
+import {EarphoneService} from '../../service/earphone/earphone.service';
 
 @Component({
   selector: 'app-headphones',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeadphonesComponent implements OnInit {
 
-  constructor() { }
+  earphoneList: Earphone[];
+
+  constructor(
+    private earphoneService$: EarphoneService
+  ) { }
 
   ngOnInit() {
+    this.earphoneList = this.earphoneService$.getEarphoneList()
   }
 
 }

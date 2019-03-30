@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CellphoneService} from '../../service/cellphone/cellphone.service';
+import {Cellphone} from '../../model/cellphone.model';
 
 @Component({
   selector: 'app-cellphone',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CellphoneComponent implements OnInit {
 
-  constructor() { }
+  cellphoneList: Cellphone[];
+
+  constructor(
+    private cellphoneService$: CellphoneService
+  ) { }
 
   ngOnInit() {
+    this.cellphoneList = this.cellphoneService$.getCellphoneList()
   }
 
 }

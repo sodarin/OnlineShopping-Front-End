@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Keyboard} from '../../model/keyboard.model';
+import {KeyboardService} from '../../service/keyboard/keyboard.service';
 
 @Component({
   selector: 'app-keyboard',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KeyboardComponent implements OnInit {
 
-  constructor() { }
+  keyboardList: Keyboard[];
+
+  constructor(
+    private keyboardService$: KeyboardService
+  ) { }
 
   ngOnInit() {
+    this.keyboardList = this.keyboardService$.getKeyboardList()
   }
 
 }

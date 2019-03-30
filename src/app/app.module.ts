@@ -25,6 +25,9 @@ import {AddressService} from './service/address/address.service';
 import {AddrModalComponent} from './core/modal/addr-modal/addr-modal.component';
 import {ShoppingCartService} from './service/shoppingCart/shopping-cart.service';
 import {OrderDetailComponent} from './core/modal/order-detail/order-detail.component';
+import {KeyboardService} from './service/keyboard/keyboard.service';
+import {MouseService} from './service/mouse/mouse.service';
+import {EarphoneService} from './service/earphone/earphone.service';
 
 
 registerLocaleData(en);
@@ -55,7 +58,10 @@ registerLocaleData(en);
     CellphoneService,
     ComputerService,
     AddressService,
-    ShoppingCartService
+    ShoppingCartService,
+    KeyboardService,
+    MouseService,
+    EarphoneService
   ],
   entryComponents: [
     LoginModalComponent,

@@ -1,3 +1,9 @@
-<p>
-  cellphone works!
-</p>
+<div class="display-page">
+  <app-search-button></app-search-button>
+  <div class="display-row" nz-row nzGutter="16">
+    <div *ngFor="let listItem of cellphoneList">
+      <app-product-item nz-col class="gutter-row" nzSpan="6" [item]="listItem"></app-product-item>
+    </div>
+  </div>
+</div>
+<app-back-top></app-back-top>
