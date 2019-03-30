@@ -37,6 +37,8 @@ export class OrderTableComponent implements OnInit {
         price: item.price,
         clientName: item.clientName,
         clientAddr: item.clientAddr,
+        clientPhone: item.clientPhone,
+        clientPostcode: item.clientPostcode,
         status: item.status,
         orderTime: item.orderTime
       })

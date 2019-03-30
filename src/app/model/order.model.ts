@@ -7,6 +7,8 @@ export class Order {
     public clientId: string,
     public clientName: string,
     public clientAddr: string,
+    public clientPhone: string,
+    public clientPostcode: string,
     public orderItems: OrderItem[],
     public price: number,
     public status: StatusEnum,
