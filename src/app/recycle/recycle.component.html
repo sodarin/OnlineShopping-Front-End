@@ -1,5 +1,5 @@
 <div class="recycle-page">
-  <nz-tabset>
+  <nz-tabset [nzTabBarExtraContent]="addButton">
     <nz-tab nzTitle="全部回收记录">
       <app-recycle-table [recycleItemList]="recycleDisplayList"></app-recycle-table>
     </nz-tab>
@@ -16,4 +16,7 @@
       <app-recycle-table [recycleItemList]="cancelledRecycleDisplayList"></app-recycle-table>
     </nz-tab>
   </nz-tabset>
+  <ng-template #addButton>
+    <button nz-tooltip nzTitle="我要回收" nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" (click)="openRequestRecycleModal()"><i nz-icon type="plus"></i></button>
+  </ng-template>
 </div>

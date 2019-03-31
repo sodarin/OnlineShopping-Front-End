@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {RecycleService} from '../service/recycle/recycle.service';
 import {RecycleItemDisplay} from '../model/recycleOrder.model';
 import {RecycleStatus} from '../model/recycleStatus';
+import {NzModalService} from 'ng-zorro-antd';
+import {AddRecycleOrderComponent} from '../core/modal/add-recycle-order/add-recycle-order.component';
 
 @Component({
   selector: 'app-recycle',
@@ -17,7 +19,8 @@ export class RecycleComponent implements OnInit {
   cancelledRecycleDisplayList: RecycleItemDisplay[];
 
   constructor(
-    private recycle$: RecycleService
+    private recycle$: RecycleService,
+    private _modal: NzModalService
   ) { }
 
   ngOnInit() {
@@ -26,6 +29,18 @@ export class RecycleComponent implements OnInit {
     this.auditedRecycleDisplayList = this.recycleDisplayList.filter(item => item.status == RecycleStatus.PASSED || item.status == RecycleStatus.NOT_PASSED);
     this.completedRecycleDisplayList = this.recycleDisplayList.filter(item => item.status == RecycleStatus.COMPLETED);
     this.cancelledRecycleDisplayList = this.recycleDisplayList.filter(item => item.status == RecycleStatus.CANCELLED)
+  }
+
+  openRequestRecycleModal() {
+    this._modal.create({
+      nzTitle: '我要回收',
+      nzContent: AddRecycleOrderComponent,
+      nzWidth: 1040,
+      nzOkText: '提交申请',
+      nzOnOk: instance => instance.submit(),
+      nzCancelText: '取消申请',
+      nzOnCancel: instance => instance.cancel()
+    })
   }
 
 }

@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RecycleItemDisplay} from '../../model/recycleOrder.model';
+import {NzModalRef, NzModalService} from 'ng-zorro-antd';
+import {RecycleStatus} from '../../model/recycleStatus';
 
 @Component({
   selector: 'app-recycle-table',
@@ -16,7 +18,10 @@ export class RecycleTableComponent implements OnInit {
 
   pageIndex: number = 1;
 
-  constructor() { }
+  confirmModal: NzModalRef;
+  constructor(
+    private _modal: NzModalService
+  ) { }
 
   ngOnInit() {
     this.recycleItemList.forEach(item => {
@@ -48,12 +53,28 @@ export class RecycleTableComponent implements OnInit {
 
   }
 
-  confirmRecycle(id: string) {
-
+  confirmRecycle(data: any) {
+    this.confirmModal = this._modal.confirm({
+      nzTitle: '确认回收？',
+      nzContent: `原订单编号${data.orderId}，商品名${data.itemName}，回收价格为${data.recyclePrice}`,
+      nzOkText: '确定回收',
+      nzOnOk: () => {
+        data.status = RecycleStatus.COMPLETED
+      },
+      nzCancelText: '取消'
+    })
   }
 
-  cancelRecycle(id: string) {
-
+  cancelRecycle(data: any) {
+    this.confirmModal = this._modal.confirm({
+      nzTitle: '是否取消回收？',
+      nzContent: `回收订单编号${data.recycleOrderID}，商品名${data.itemName}，回收价格为${data.recyclePrice}`,
+      nzOkText: '取消回收',
+      nzOnOk: () => {
+        data.status = RecycleStatus.CANCELLED
+      },
+      nzCancelText: '关闭窗口'
+    })
   }
 
 

@@ -27,8 +27,8 @@
     <td>{{data.requestedTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
     <td class="operation">
       <i nz-tooltip nzTitle="查看详情" nz-icon type="file-search" (click)="showDetail(data.recycleOrderID)"></i>
-      <i nz-tooltip nzTitle="确认回收" nz-icon *ngIf="data.status == '已通过'" type="property-safety" (click)="confirmRecycle(data.recycleOrderId)"></i>
-      <i nz-tooltip nzTitle="取消" nz-icon *ngIf="data.status !== '已完成' && data.status !== '已取消' && data.status !== '未通过'" type="close-square" (click)="cancelRecycle(data.recycleOrderId)"></i>
+      <i nz-tooltip nzTitle="确认回收" nz-icon *ngIf="data.status == '已通过'" type="property-safety" (click)="confirmRecycle(data)"></i>
+      <i nz-tooltip nzTitle="取消" nz-icon *ngIf="data.status !== '已完成' && data.status !== '已取消' && data.status !== '未通过'" type="close-square" (click)="cancelRecycle(data)"></i>
     </td>
   </tr>
   </tbody>

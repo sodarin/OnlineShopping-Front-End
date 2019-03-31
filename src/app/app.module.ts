@@ -29,6 +29,7 @@ import {KeyboardService} from './service/keyboard/keyboard.service';
 import {MouseService} from './service/mouse/mouse.service';
 import {EarphoneService} from './service/earphone/earphone.service';
 import {RecycleService} from './service/recycle/recycle.service';
+import {AddRecycleOrderComponent} from './core/modal/add-recycle-order/add-recycle-order.component';
 
 
 registerLocaleData(en);
@@ -69,7 +70,8 @@ registerLocaleData(en);
     LoginModalComponent,
     RegisterModalComponent,
     AddrModalComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    AddRecycleOrderComponent
   ],
   bootstrap: [AppComponent]
 })

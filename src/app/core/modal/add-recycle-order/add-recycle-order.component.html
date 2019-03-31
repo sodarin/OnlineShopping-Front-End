@@ -1,0 +1,26 @@
+<nz-steps [nzCurrent]="current" [nzDirection]="'vertical'">
+  <nz-step nzTitle="选择要回收的产品"></nz-step>
+  <nz-step nzTitle="确定产品使用状态"></nz-step>
+  <nz-step nzTitle="回收估价"></nz-step>
+</nz-steps>
+
+<div class="steps-content">
+  <div class="first-step-content" *ngIf="current == 0">
+    <nz-input-group nzCompact [nzSize]="'large'" [nzAddOnAfter]="suffixButton">
+      <input type="text" nz-input placeholder="输入订单编号" style="width: 50%;" />
+      <input type="text" nz-input placeholder="输入产品编号" style="width:50%;" />
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSize="large" nzSearch>搜索记录</button>
+    </ng-template>
+  </div>
+</div>
+
+<div class="steps-action">
+  <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+    <span>上一步</span>
+  </button>
+  <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
+    <span>下一步</span>
+  </button>
+</div>
