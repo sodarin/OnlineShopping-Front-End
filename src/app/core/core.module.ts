@@ -13,9 +13,10 @@ import { NewAddressButtonComponent } from './new-address-button/new-address-butt
 import { OrderTableComponent } from './order-table/order-table.component';
 import {OrderDetailComponent} from './modal/order-detail/order-detail.component';
 import { SearchButtonComponent } from './search-button/search-button.component';
+import { RecycleTableComponent } from './recycle-table/recycle-table.component';
 
 @NgModule({
-  declarations: [LoginModalComponent, ProductItemComponent, RegisterModalComponent, DetailPageComponent, BackTopComponent, AddressItemComponent, AddrModalComponent, NewAddressButtonComponent, OrderTableComponent, OrderDetailComponent, SearchButtonComponent],
+  declarations: [LoginModalComponent, ProductItemComponent, RegisterModalComponent, DetailPageComponent, BackTopComponent, AddressItemComponent, AddrModalComponent, NewAddressButtonComponent, OrderTableComponent, OrderDetailComponent, SearchButtonComponent, RecycleTableComponent],
   imports: [
     CommonModule,
     NgZorroAntdModule,
@@ -33,7 +34,8 @@ import { SearchButtonComponent } from './search-button/search-button.component';
     NewAddressButtonComponent,
     OrderTableComponent,
     OrderDetailComponent,
-    SearchButtonComponent
+    SearchButtonComponent,
+    RecycleTableComponent
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
 })

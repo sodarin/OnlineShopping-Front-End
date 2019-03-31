@@ -1,3 +1,19 @@
-<p>
-  recycle works!
-</p>
+<div class="recycle-page">
+  <nz-tabset>
+    <nz-tab nzTitle="全部回收记录">
+      <app-recycle-table [recycleItemList]="recycleDisplayList"></app-recycle-table>
+    </nz-tab>
+    <nz-tab nzTitle="待审核">
+      <app-recycle-table [recycleItemList]="requestedRecycleDisplayList"></app-recycle-table>
+    </nz-tab>
+    <nz-tab nzTitle="已通过/未通过">
+      <app-recycle-table [recycleItemList]="auditedRecycleDisplayList"></app-recycle-table>
+    </nz-tab>
+    <nz-tab nzTitle="已完成">
+      <app-recycle-table [recycleItemList]="completedRecycleDisplayList"></app-recycle-table>
+    </nz-tab>
+    <nz-tab nzTitle="已取消">
+      <app-recycle-table [recycleItemList]="cancelledRecycleDisplayList"></app-recycle-table>
+    </nz-tab>
+  </nz-tabset>
+</div>

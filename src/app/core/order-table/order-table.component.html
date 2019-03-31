@@ -29,7 +29,7 @@
     <td>￥{{data.price}}</td>
     <td>{{data.status}}</td>
     <td>{{data.orderTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
-    <td class="operation"><i nz-tooltip nzTitle="申请退款" nz-icon *ngIf="data.status == '已完成'" type="dollar" (click)="refundRequested(data)"></i><i nz-tooltip nzTitle="查看订单详情" nz-icon type="file-search" (click)="showOrderDetail(data)"></i></td>
+    <td class="operation"><i nz-tooltip nzTitle="查看订单详情" nz-icon type="file-search" (click)="showOrderDetail(data)"></i><i nz-tooltip nzTitle="申请退款" nz-icon *ngIf="data.status == '已完成'" type="dollar" (click)="refundRequested(data)"></i></td>
   </tr>
   </tbody>
 </nz-table>
