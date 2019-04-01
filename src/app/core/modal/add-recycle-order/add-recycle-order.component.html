@@ -25,7 +25,7 @@
         </div>
       </div>
       <nz-divider></nz-divider>
-      <div class="item-diplay" *ngFor="let itemData of orderItemsList">
+      <div class="item-display" *ngFor="let itemData of orderItemsList">
         <div (click)="selectRecycleItem(itemData)" class="item-info" [class.active]="selectedItem?.itemId == itemData.itemId">
           <div class="item-img">
             <img [src]="itemData?.itemImg" [alt]="itemData?.itemName">
