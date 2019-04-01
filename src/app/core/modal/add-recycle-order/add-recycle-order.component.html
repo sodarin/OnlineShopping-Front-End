@@ -48,7 +48,7 @@
   <div class="second-step-content" *ngIf="current == 1">
 
     <nz-input-group class="purchase-time" nzAddOnBefore="购买时间：">
-      <input nz-input [placeholder]="specifiedOrder.orderTime | date: 'yyyy-MM-dd: HH-mm-ss'" [disabled]="true" />
+      <input nz-input [placeholder]="specifiedOrder.orderTime | date: 'yyyy-MM-dd HH:mm:ss'" [disabled]="true" />
     </nz-input-group>
     <div class="use-status">
       <nz-select style="width: 100%;" [(ngModel)]="useStatus" nzAllowClear nzPlaceHolder="产品使用状态">
@@ -78,6 +78,7 @@
         <nz-option nzValue ="256" nzLabel="256g"></nz-option>
         <nz-option nzValue ="512+" nzLabel="512g及以上"></nz-option>
       </nz-select>
+
       <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'cellphone'" [(ngModel)]="memoryStatus" nzAllowClear nzPlaceHolder="内存">
         <nz-option nzValue ="4" nzLabel="4g"></nz-option>
         <nz-option nzValue ="8" nzLabel="8g"></nz-option>
@@ -88,6 +89,15 @@
         <nz-option nzValue ="32" nzLabel="32g"></nz-option>
         <nz-option nzValue ="64" nzLabel="64g"></nz-option>
         <nz-option nzValue ="128" nzLabel="128g"></nz-option>
+      </nz-select>
+
+      <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'earphone'" [(ngModel)]="voiceStatus" nzAllowClear nzPlaceHolder="声音情况">
+        <nz-option nzValue ="0" nzLabel="声音异常或有杂音偏音"></nz-option>
+        <nz-option nzValue ="1" nzLabel="声音正常"></nz-option>
+      </nz-select>
+      <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'earphone'" [(ngModel)]="fixStatus" nzAllowClear nzPlaceHolder="有无拆修史">
+        <nz-option nzValue ="0" nzLabel="有拆修"></nz-option>
+        <nz-option nzValue ="1" nzLabel="无拆无修"></nz-option>
       </nz-select>
     </div>
 
@@ -109,6 +119,33 @@
                  nzPlaceHolder="零件更换情况" (ngModelChange)="detectComponentReplaceSelectedStatusChange()">
         <nz-option *ngFor="let option of cellphoneComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
       </nz-select>
+
+      <nz-select *ngIf="selectedItem.itemType == 'earphone'"
+                 style="width: 100%;"
+                 nzMode="multiple"
+                 [(ngModel)]="componentReplaceSelectedStatusList"
+                 nzAllowClear
+                 nzPlaceHolder="包装配件情况" (ngModelChange)="detectComponentReplaceSelectedStatusChange()">
+        <nz-option *ngFor="let option of earphoneComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
+      </nz-select>
+
+      <nz-select *ngIf="selectedItem.itemType == 'mouse'"
+                 style="width: 100%;"
+                 nzMode="multiple"
+                 [(ngModel)]="componentReplaceSelectedStatusList"
+                 nzAllowClear
+                 nzPlaceHolder="包装配件情况" (ngModelChange)="detectComponentReplaceSelectedStatusChange()">
+        <nz-option *ngFor="let option of mouseComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
+      </nz-select>
+
+      <nz-select *ngIf="selectedItem.itemType == 'keyboard'"
+                 style="width: 100%;"
+                 nzMode="multiple"
+                 [(ngModel)]="componentReplaceSelectedStatusList"
+                 nzAllowClear
+                 nzPlaceHolder="包装配件情况" (ngModelChange)="detectComponentReplaceSelectedStatusChange()">
+        <nz-option *ngFor="let option of keyboardComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
+      </nz-select>
     </div>
 
     <div class="vital-problem">
@@ -121,16 +158,51 @@
         <nz-option *ngFor="let option of computerVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'computer'"
+      <nz-select *ngIf="selectedItem.itemType == 'cellphone'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="vitalProblemList"
                  nzAllowClear
                  nzPlaceHolder="重大的使用问题" (ngModelChange)="detectVitalProblemSelectedChange()">
-        <nz-option *ngFor="let option of computerVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
+        <nz-option *ngFor="let option of cellphoneVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
+      </nz-select>
+
+      <nz-select *ngIf="selectedItem.itemType == 'earphone'"
+                 style="width: 100%;"
+                 nzMode="multiple"
+                 [(ngModel)]="vitalProblemList"
+                 nzAllowClear
+                 nzPlaceHolder="重大的使用问题" (ngModelChange)="detectVitalProblemSelectedChange()">
+        <nz-option *ngFor="let option of earphoneVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
+      </nz-select>
+
+      <nz-select *ngIf="selectedItem.itemType == 'mouse'"
+                 style="width: 100%;"
+                 nzMode="multiple"
+                 [(ngModel)]="vitalProblemList"
+                 nzAllowClear
+                 nzPlaceHolder="重大的使用问题" (ngModelChange)="detectVitalProblemSelectedChange()">
+        <nz-option *ngFor="let option of mouseVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
+      </nz-select>
+
+      <nz-select *ngIf="selectedItem.itemType == 'keyboard'"
+                 style="width: 100%;"
+                 nzMode="multiple"
+                 [(ngModel)]="vitalProblemList"
+                 nzAllowClear
+                 nzPlaceHolder="重大的使用问题" (ngModelChange)="detectVitalProblemSelectedChange()">
+        <nz-option *ngFor="let option of keyboardVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
       </nz-select>
     </div>
 
+  </div>
+
+  <div class="third-step-content" *ngIf="current == 2">
+    <div class="price-title">
+      <span>系统估价</span>
+    </div>
+    <div class="price">￥500.00</div>
+    <div class="price-desc">估价仅作参考，具体价格以实际为准</div>
   </div>
 
 </div>
@@ -139,7 +211,7 @@
   <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
     <span>上一步</span>
   </button>
-  <button [disabled]="selectedItem == null" nz-button nzType="default" (click)="next()" *ngIf="current < 2">
+  <button [disabled]="((selectedItem == null) && (current == 0)) || (((cpuStatus == null || memoryStatus == null || ssdStatus == null) && (voiceStatus == null || fixStatus == null) || componentReplaceSelectedStatusList.length == 0 || vitalProblemList.length == 0) && current == 1)" nz-button nzType="default" (click)="next()" *ngIf="current < 2">
     <span>下一步</span>
   </button>
   <button nz-button nzType="primary" (click)="submit()" *ngIf="current == 2">

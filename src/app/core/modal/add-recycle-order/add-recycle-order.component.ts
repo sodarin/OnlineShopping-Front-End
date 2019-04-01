@@ -23,6 +23,8 @@ export class AddRecycleOrderComponent implements OnInit {
   cpuStatus: any;
   memoryStatus: any;
   ssdStatus: any;
+  voiceStatus: any;
+  fixStatus: any;
   componentReplaceSelectedStatusList = [];
   vitalProblemList = [];
   componentReplaceDisabled: boolean = false;
@@ -57,6 +59,68 @@ export class AddRecycleOrderComponent implements OnInit {
     {value: '3', label: '曾维修过处理器'},
     {value: '4', label: '曾维修过接口'},
   ];
+  cellphoneVitalProblemList = [
+    {value: '0', label: '无重大问题'},
+    {value: '1', label: '接口异常'},
+    {value: '2', label: '无法正常开机'},
+    {value: '3', label: '无电池，电池肿胀、无法使用'},
+    {value: '4', label: '严重维修'},
+    {value: '5', label: '机身进水'},
+    {value: '6', label: '屏幕损坏严重'},
+  ];
+
+  earphoneComponentReplaceStatusList = [
+    {value: '0', label: '包装配件齐全'},
+    {value: '1', label: '缺少原装外包装盒'},
+    {value: '2', label: '缺少原装说明书'},
+    {value: '3', label: '缺少原装保修卡'},
+    {value: '4', label: '缺少原装耳机线'},
+    {value: '5', label: '缺少原装充电线'},
+  ];
+
+  earphoneVitalProblemList = [
+    {value: '0', label: '无重大问题'},
+    {value: '1', label: '蓝牙功能无法正常使用'},
+    {value: '2', label: '声音无法正常使用'},
+    {value: '3', label: '电池损耗严重'},
+    {value: '4', label: '严重维修'},
+    {value: '5', label: '机身进水'},
+    {value: '6', label: '外观损毁严重'},
+  ];
+
+  mouseComponentReplaceStatusList = [
+    {value: '0', label: '包装配件齐全'},
+    {value: '1', label: '缺少原装外包装盒'},
+    {value: '2', label: '缺少原装说明书'},
+    {value: '3', label: '缺少原装保修卡'},
+    {value: '4', label: '缺少原装USB连接线'},
+  ];
+
+  mouseVitalProblemList = [
+    {value: '0', label: '无重大问题'},
+    {value: '1', label: '蓝牙鼠标无法正常使用功能'},
+    {value: '2', label: '有线鼠标无法正常使用功能'},
+    {value: '3', label: '按键有严重问题'},
+    {value: '4', label: '滚轮有严重问题'},
+    {value: '5', label: '外观氧化/磨损/划痕严重'},
+  ];
+
+  keyboardComponentReplaceStatusList = [
+    {value: '0', label: '包装配件齐全'},
+    {value: '1', label: '缺少原装外包装盒'},
+    {value: '2', label: '缺少原装说明书'},
+    {value: '3', label: '缺少原装保修卡'},
+    {value: '4', label: '缺少原装USB连接线'},
+    {value: '5', label: '缺少键帽'}
+  ];
+
+  keyboardVitalProblemList = [
+    {value: '0', label: '无重大问题'},
+    {value: '1', label: '蓝牙无法正常使用'},
+    {value: '2', label: '有线无法正常使用'},
+    {value: '3', label: '按键有严重问题'},
+    {value: '4', label: '外观氧化/磨损/划痕严重'},
+  ];
 
   constructor(
     private _modal: NzModalRef,
@@ -65,6 +129,10 @@ export class AddRecycleOrderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.vitalProblemList.length)
+    console.log(this.componentReplaceSelectedStatusList.length)
+    console.log(this.fixStatus == null)
+    console.log(this.voiceStatus == null)
   }
 
   pre(): void {
