@@ -47,4 +47,8 @@ export class OrderService {
   getOrderListByClientId(clientId: string = '1001') {
     return this.orders.filter(item => item.clientId == clientId);
   }
+
+  getOrderItemListByOrderId(orderId: string, clientId: string = '1001') {
+    return this.orders.filter(item => item.orderId == orderId)[0]
+  }
 }

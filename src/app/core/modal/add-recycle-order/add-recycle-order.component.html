@@ -1,4 +1,4 @@
-<nz-steps [nzCurrent]="current" [nzDirection]="'vertical'">
+<nz-steps [nzCurrent]="current" nzSize="small">
   <nz-step nzTitle="选择要回收的产品"></nz-step>
   <nz-step nzTitle="确定产品使用状态"></nz-step>
   <nz-step nzTitle="回收估价"></nz-step>
@@ -6,13 +6,49 @@
 
 <div class="steps-content">
   <div class="first-step-content" *ngIf="current == 0">
-    <nz-input-group nzCompact [nzSize]="'large'" [nzAddOnAfter]="suffixButton">
-      <input type="text" nz-input placeholder="输入订单编号" style="width: 50%;" />
-      <input type="text" nz-input placeholder="输入产品编号" style="width:50%;" />
+    <nz-input-group nzSearch [nzSize]="'large'" [nzAddOnAfter]="suffixButton">
+      <input [(ngModel)]="orderId" type="text" nz-input placeholder="输入订单编号"/>
     </nz-input-group>
     <ng-template #suffixButton>
-      <button nz-button nzType="primary" nzSize="large" nzSearch>搜索记录</button>
+      <button nz-button nzType="primary" nzSize="large" nzSearch (click)="searchOrderById()">搜索</button>
     </ng-template>
+
+    <div *ngIf="specifiedOrder != null">
+      <nz-divider></nz-divider>
+      <div class="addr-info">
+        <div class="client-basic-info">
+          <span>收件人姓名：{{specifiedOrder?.clientName}}</span>
+        </div>
+        <span>收件人手机号码：{{specifiedOrder?.clientPhone}}</span>
+        <div class="addr-detail">
+          <span>收件地址： {{specifiedOrder?.clientAddr}}</span>
+        </div>
+      </div>
+      <nz-divider></nz-divider>
+      <div class="item-diplay" *ngFor="let itemData of orderItemsList">
+        <div (click)="selectRecycleItem(itemData)" class="item-info" [class.active]="selectedItem?.itemId == itemData.itemId">
+          <div class="item-img">
+            <img [src]="itemData?.itemImg" [alt]="itemData?.itemName">
+          </div>
+          <div class="item-detail">
+            <div class="item-name">{{itemData?.itemName}}</div>
+            <div class="price">原价：￥{{itemData?.itemPrice}}</div>
+          </div>
+        </div>
+        <nz-divider></nz-divider>
+      </div>
+    </div>
+
+    <div *ngIf="selectedItem != null"><span>已选择回收商品：{{selectedItem.itemName}}</span></div>
+
+  </div>
+
+
+
+  <div class="second-step-content" *ngIf="current == 1">
+    <nz-input-group class="purchase-time" nzAddOnBefore="购买时间：">
+      <input nz-input [placeholder]="specifiedOrder.orderTime | date: 'yyyy-MM-dd: HH-mm-ss'" [disabled]="true" />
+    </nz-input-group>
   </div>
 </div>
 
@@ -20,7 +56,10 @@
   <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
     <span>上一步</span>
   </button>
-  <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
+  <button [disabled]="selectedItem == null" nz-button nzType="default" (click)="next()" *ngIf="current < 2">
     <span>下一步</span>
+  </button>
+  <button nz-button nzType="primary" (click)="submit()" *ngIf="current == 2">
+    <span>提交申请</span>
   </button>
 </div>

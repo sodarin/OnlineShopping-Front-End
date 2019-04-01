@@ -35,11 +35,8 @@ export class RecycleComponent implements OnInit {
     this._modal.create({
       nzTitle: '我要回收',
       nzContent: AddRecycleOrderComponent,
-      nzWidth: 1040,
-      nzOkText: '提交申请',
-      nzOnOk: instance => instance.submit(),
-      nzCancelText: '取消申请',
-      nzOnCancel: instance => instance.cancel()
+      nzWidth: 650,
+      nzFooter: null
     })
   }
 
