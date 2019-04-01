@@ -1,3 +1,5 @@
+import {ItemType} from './item-type.model';
+
 export class Item {
   constructor(
     public id: string,
@@ -7,6 +9,7 @@ export class Item {
     public img: string,
     public advantage: string,
     public detail: string,
-    public inventory: number
+    public inventory: number,
+    public type: ItemType
   ) {}
 }

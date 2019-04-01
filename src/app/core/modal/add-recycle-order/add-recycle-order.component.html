@@ -46,10 +46,93 @@
 
 
   <div class="second-step-content" *ngIf="current == 1">
+
     <nz-input-group class="purchase-time" nzAddOnBefore="购买时间：">
       <input nz-input [placeholder]="specifiedOrder.orderTime | date: 'yyyy-MM-dd: HH-mm-ss'" [disabled]="true" />
     </nz-input-group>
+    <div class="use-status">
+      <nz-select style="width: 100%;" [(ngModel)]="useStatus" nzAllowClear nzPlaceHolder="产品使用状态">
+        <nz-option nzValue="1" nzLabel="全新未拆"></nz-option>
+        <nz-option nzValue="0.9" nzLabel="9成新，无使用痕迹"></nz-option>
+        <nz-option nzValue="0.8" nzLabel="8成新，表面无明显使用痕迹"></nz-option>
+        <nz-option nzValue="0.7" nzLabel="7成新，使用痕迹较明显"></nz-option>
+        <nz-option nzValue="0.6" nzLabel="6成新，有明显损耗痕迹"></nz-option>
+        <nz-option nzValue="0.5" nzLabel="5成新，多处磨损、刮擦"></nz-option>
+      </nz-select>
+    </div>
+    <div class="component-status">
+      <nz-select style="width: 30%;" *ngIf="selectedItem.itemType == 'computer'" [(ngModel)]="cpuStatus" nzAllowClear nzPlaceHolder="处理器">
+        <nz-option nzValue ="i3" nzLabel="i3"></nz-option>
+        <nz-option nzValue ="i5" nzLabel="i5"></nz-option>
+        <nz-option nzValue ="i7" nzLabel="i7"></nz-option>
+      </nz-select>
+      <nz-select style="width: 30%;" *ngIf="selectedItem.itemType == 'computer'" [(ngModel)]="memoryStatus" nzAllowClear nzPlaceHolder="内存">
+        <nz-option nzValue ="4" nzLabel="4g"></nz-option>
+        <nz-option nzValue ="8" nzLabel="8g"></nz-option>
+        <nz-option nzValue ="16" nzLabel="16g"></nz-option>
+        <nz-option nzValue ="32+" nzLabel="32g及以上"></nz-option>
+      </nz-select>
+      <nz-select style="width: 30%;" *ngIf="selectedItem.itemType == 'computer'" [(ngModel)]="ssdStatus" nzAllowClear nzPlaceHolder="固态硬盘">
+        <nz-option nzValue ="0" nzLabel="无固态硬盘"></nz-option>
+        <nz-option nzValue ="128" nzLabel="128g"></nz-option>
+        <nz-option nzValue ="256" nzLabel="256g"></nz-option>
+        <nz-option nzValue ="512+" nzLabel="512g及以上"></nz-option>
+      </nz-select>
+      <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'cellphone'" [(ngModel)]="memoryStatus" nzAllowClear nzPlaceHolder="内存">
+        <nz-option nzValue ="4" nzLabel="4g"></nz-option>
+        <nz-option nzValue ="8" nzLabel="8g"></nz-option>
+        <nz-option nzValue ="16" nzLabel="16g"></nz-option>
+        <nz-option nzValue ="32+" nzLabel="32g及以上"></nz-option>
+      </nz-select>
+      <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'cellphone'" [(ngModel)]="ssdStatus" nzAllowClear nzPlaceHolder="手机存储大小">
+        <nz-option nzValue ="32" nzLabel="32g"></nz-option>
+        <nz-option nzValue ="64" nzLabel="64g"></nz-option>
+        <nz-option nzValue ="128" nzLabel="128g"></nz-option>
+      </nz-select>
+    </div>
+
+    <div class="component-replace">
+      <nz-select *ngIf="selectedItem.itemType == 'computer'"
+        style="width: 100%;"
+        nzMode="multiple"
+        [(ngModel)]="componentReplaceSelectedStatusList"
+        nzAllowClear
+        nzPlaceHolder="零件更换情况" (ngModelChange)="detectComponentReplaceSelectedStatusChange()">
+        <nz-option *ngFor="let option of computerComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
+      </nz-select>
+
+      <nz-select *ngIf="selectedItem.itemType == 'cellphone'"
+                 style="width: 100%;"
+                 nzMode="multiple"
+                 [(ngModel)]="componentReplaceSelectedStatusList"
+                 nzAllowClear
+                 nzPlaceHolder="零件更换情况" (ngModelChange)="detectComponentReplaceSelectedStatusChange()">
+        <nz-option *ngFor="let option of cellphoneComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
+      </nz-select>
+    </div>
+
+    <div class="vital-problem">
+      <nz-select *ngIf="selectedItem.itemType == 'computer'"
+        style="width: 100%;"
+        nzMode="multiple"
+        [(ngModel)]="vitalProblemList"
+        nzAllowClear
+        nzPlaceHolder="重大的使用问题" (ngModelChange)="detectVitalProblemSelectedChange()">
+        <nz-option *ngFor="let option of computerVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
+      </nz-select>
+
+      <nz-select *ngIf="selectedItem.itemType == 'computer'"
+                 style="width: 100%;"
+                 nzMode="multiple"
+                 [(ngModel)]="vitalProblemList"
+                 nzAllowClear
+                 nzPlaceHolder="重大的使用问题" (ngModelChange)="detectVitalProblemSelectedChange()">
+        <nz-option *ngFor="let option of computerVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
+      </nz-select>
+    </div>
+
   </div>
+
 </div>
 
 <div class="steps-action">
