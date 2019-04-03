@@ -15,9 +15,11 @@ import {OrderDetailComponent} from './modal/order-detail/order-detail.component'
 import { SearchButtonComponent } from './search-button/search-button.component';
 import { RecycleTableComponent } from './recycle-table/recycle-table.component';
 import { AddRecycleOrderComponent } from './modal/add-recycle-order/add-recycle-order.component';
+import { ShowRecycleDetailComponent } from './modal/show-recycle-detail/show-recycle-detail.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
-  declarations: [LoginModalComponent, ProductItemComponent, RegisterModalComponent, DetailPageComponent, BackTopComponent, AddressItemComponent, AddrModalComponent, NewAddressButtonComponent, OrderTableComponent, OrderDetailComponent, SearchButtonComponent, RecycleTableComponent, AddRecycleOrderComponent],
+  declarations: [LoginModalComponent, ProductItemComponent, RegisterModalComponent, DetailPageComponent, BackTopComponent, AddressItemComponent, AddrModalComponent, NewAddressButtonComponent, OrderTableComponent, OrderDetailComponent, SearchButtonComponent, RecycleTableComponent, AddRecycleOrderComponent, ShowRecycleDetailComponent, CommentComponent],
   imports: [
     CommonModule,
     NgZorroAntdModule,
@@ -37,7 +39,9 @@ import { AddRecycleOrderComponent } from './modal/add-recycle-order/add-recycle-
     OrderDetailComponent,
     SearchButtonComponent,
     RecycleTableComponent,
-    AddRecycleOrderComponent
+    AddRecycleOrderComponent,
+    ShowRecycleDetailComponent,
+    CommentComponent
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
 })

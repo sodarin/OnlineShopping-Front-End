@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {RecycleItemDisplay} from '../../model/recycleOrder.model';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {RecycleStatus} from '../../model/recycleStatus';
+import {ShowRecycleDetailComponent} from '../modal/show-recycle-detail/show-recycle-detail.component';
 
 @Component({
   selector: 'app-recycle-table',
@@ -33,7 +34,6 @@ export class RecycleTableComponent implements OnInit {
         recyclePrice: item.recyclePrice,
         status: item.status,
         requestedTime: item.requestedTime,
-        reason: item.reason
       })
     });
     this.searchData()
@@ -50,7 +50,14 @@ export class RecycleTableComponent implements OnInit {
   }
 
   showDetail(id: string) {
-
+    this._modal.create({
+      nzTitle: '回收产品详情',
+      nzContent: ShowRecycleDetailComponent,
+      nzComponentParams: {
+        recycleOrderId: id
+      },
+      nzFooter: null
+    })
   }
 
   confirmRecycle(data: any) {

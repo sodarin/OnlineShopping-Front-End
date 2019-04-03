@@ -22,7 +22,8 @@
     <td>{{data.recycleOrderID}}</td>
     <td>{{data.orderId}}</td>
     <td>{{data.itemName}}</td>
-    <td>￥{{data.recyclePrice}}</td>
+    <td *ngIf="data.recyclePrice > 0">￥{{data.recyclePrice}}</td>
+    <td *ngIf="data.recyclePrice == 0">回收请求未通过，无回收价格</td>
     <td>{{data.status}}</td>
     <td>{{data.requestedTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
     <td class="operation">

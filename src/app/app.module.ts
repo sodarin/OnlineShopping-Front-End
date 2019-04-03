@@ -30,6 +30,7 @@ import {MouseService} from './service/mouse/mouse.service';
 import {EarphoneService} from './service/earphone/earphone.service';
 import {RecycleService} from './service/recycle/recycle.service';
 import {AddRecycleOrderComponent} from './core/modal/add-recycle-order/add-recycle-order.component';
+import {ShowRecycleDetailComponent} from './core/modal/show-recycle-detail/show-recycle-detail.component';
 
 
 registerLocaleData(en);
@@ -71,7 +72,8 @@ registerLocaleData(en);
     RegisterModalComponent,
     AddrModalComponent,
     OrderDetailComponent,
-    AddRecycleOrderComponent
+    AddRecycleOrderComponent,
+    ShowRecycleDetailComponent
   ],
   bootstrap: [AppComponent]
 })

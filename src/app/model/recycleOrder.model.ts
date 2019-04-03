@@ -9,6 +9,5 @@ export class RecycleItemDisplay {
     public recyclePrice: number,
     public status: RecycleStatus,
     public requestedTime: Date,
-    public reason?: string
   ) {}
 }

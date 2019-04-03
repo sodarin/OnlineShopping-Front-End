@@ -129,10 +129,7 @@ export class AddRecycleOrderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.vitalProblemList.length)
-    console.log(this.componentReplaceSelectedStatusList.length)
-    console.log(this.fixStatus == null)
-    console.log(this.voiceStatus == null)
+
   }
 
   pre(): void {
