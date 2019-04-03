@@ -1,1 +1,28 @@
+<div class="passage-page">
+  <button class="create-button" nzShape="circle" nzSize="large" nz-button nzType="primary" (click)="open()"><i nz-icon type="plus"></i></button>
+  <app-search-button></app-search-button>
+  <div class="passage-list">
+    <div class="display-row" nz-row nzGutter="16">
+      <div class="passage" *ngFor="let passage of passageList">
+        <app-passege [passage]="passage" nz-col class="gutter-row" nzSpan="12"></app-passege>
+      </div>
+    </div>
+  </div>
 
+  <nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
+    [nzMaskClosable]="false"
+    [nzWidth]="720"
+    [nzVisible]="visible"
+    nzTitle="发表新文章"
+    (nzOnClose)="close()"
+  >
+    <quill-editor [(ngModel)]="editorContent" (onContentChanged)="print()"></quill-editor>
+
+    <div class="footer">
+      <button nz-button (click)="close()" nzType="primary" style="margin-top: 15px;">提交</button>
+    </div>
+  </nz-drawer>
+
+  <div id="test"></div>
+</div>

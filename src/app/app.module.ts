@@ -31,6 +31,7 @@ import {EarphoneService} from './service/earphone/earphone.service';
 import {RecycleService} from './service/recycle/recycle.service';
 import {AddRecycleOrderComponent} from './core/modal/add-recycle-order/add-recycle-order.component';
 import {ShowRecycleDetailComponent} from './core/modal/show-recycle-detail/show-recycle-detail.component';
+import { QuillModule } from 'ngx-quill'
 
 
 registerLocaleData(en);
@@ -53,7 +54,8 @@ registerLocaleData(en);
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    QuillModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
