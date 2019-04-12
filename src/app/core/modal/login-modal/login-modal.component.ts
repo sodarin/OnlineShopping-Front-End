@@ -26,14 +26,30 @@ export class LoginModalComponent implements OnInit {
     })
   }
 
-  login() {
+  isSuccessLogin() {
+    return this.login()
+  }
+
+  login(): boolean {
+    let flag = false;
     if (this.loginForm.value.name == '' || this.loginForm.value.password == ''){
       this._message.error('内容不能为空');
-      return false
+      flag = false
     } else {
-      this.loginService$.loginService();
-      this._modal.destroy()
+      this.loginService$.loginService(this.loginForm.value.name, this.loginForm.value.password).subscribe(
+        result => {
+          this.loginService$.user = result;
+          this._message.success('登陆成功');
+          this.loginService$.loginStatus.next(true);
+          this._modal.destroy()
+        },
+        error => {
+          this._message.error(error.error);
+          flag = false
+        }
+      );
     }
+    return flag
   }
 
   closeDialog() {

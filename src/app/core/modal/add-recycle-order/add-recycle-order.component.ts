@@ -157,7 +157,8 @@ export class AddRecycleOrderComponent implements OnInit {
         this._message.error('没有指定的订单编号');
       else {
         this.orderItemsList = this.specifiedOrder.orderItems;
-        this._message.success('已查询到指定订单')
+        this._message.success('已查询到指定订单');
+        this.selectedItem = null
       }
     }
   }

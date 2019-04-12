@@ -27,10 +27,10 @@
   <div>
     <h1>地址管理</h1>
   </div>
-  <div class="address-list">
+  <div *ngIf="addressList" class="address-list">
     <div nz-row nzGutter="16">
       <div *ngFor="let address of addressList" nz-col nzSpan="6">
-        <app-address-item [item]="address" (deleteEvent)="deleteAddr($event)"></app-address-item>
+        <app-address-item [item]="address" (deleteEvent)="deleteAddr($event)" (modifyItem)="modifyAddr($event)"></app-address-item>
       </div>
       <div *ngIf="addressList.length < 8" nz-col nzSpan="6">
         <app-new-address-button (newAddrEvent)="addNewAddr($event)"></app-new-address-button>

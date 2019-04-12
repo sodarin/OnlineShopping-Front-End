@@ -25,7 +25,6 @@ export class RecycleComponent implements OnInit {
 
   ngOnInit() {
     this.recycleDisplayList = this.recycle$.getRecycleItemDisplayListByClientId();
-    this.requestedRecycleDisplayList = this.recycleDisplayList.filter(item => item.status == RecycleStatus.REQUESTED);
     this.auditedRecycleDisplayList = this.recycleDisplayList.filter(item => item.status == RecycleStatus.PASSED || item.status == RecycleStatus.NOT_PASSED);
     this.completedRecycleDisplayList = this.recycleDisplayList.filter(item => item.status == RecycleStatus.COMPLETED);
     this.cancelledRecycleDisplayList = this.recycleDisplayList.filter(item => item.status == RecycleStatus.CANCELLED)

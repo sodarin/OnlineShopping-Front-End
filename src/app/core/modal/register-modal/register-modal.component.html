@@ -32,7 +32,8 @@
       <nz-input-group>
         <input type="email" nz-input formControlName="email" placeholder="请输入email">
       </nz-input-group>
-      <nz-form-explain *ngIf="registerForm.get('email').dirty && registerForm.get('email').errors">请输入email</nz-form-explain>
+      <nz-form-explain *ngIf="registerForm.get('email').dirty && registerForm.get('email').hasError('required')">请输入email</nz-form-explain>
+      <nz-form-explain *ngIf="registerForm.get('email').dirty && registerForm.get('email').hasError('email')">email格式不正确</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
 </form>

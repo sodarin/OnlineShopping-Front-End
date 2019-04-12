@@ -16,7 +16,6 @@ export class RecycleService {
     new RecycleItemDisplay('4', '3', '20000001', '联想ThinkPad X1 Carbon', 1000, RecycleStatus.PASSED, new Date()),
     new RecycleItemDisplay('5', '4', '10000001', '联想ThinkPad X1 Carbon', 4999, RecycleStatus.PASSED, new Date()),
     new RecycleItemDisplay('6', '5', '10000001', '联想ThinkPad X1 Carbon', 4999, RecycleStatus.PASSED, new Date()),
-    new RecycleItemDisplay('7', '6', '10000003', '联想ThinkPad X1 Carbon', 999, RecycleStatus.REQUESTED, new Date()),
     new RecycleItemDisplay('8', '6', '10000001', '联想ThinkPad X1 Carbon', 4999, RecycleStatus.PASSED, new Date()),
     new RecycleItemDisplay('9', '7', '10000001', '联想ThinkPad X1 Carbon', 4999, RecycleStatus.CANCELLED, new Date()),
   ];

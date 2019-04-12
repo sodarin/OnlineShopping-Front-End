@@ -25,10 +25,10 @@ export class AddrModalComponent implements OnInit {
 
   ngOnInit() {
     this.addrEditForm = this.fb.group({
-      name: [this.item.client_name, [Validators.required]],
-      phone_no: [this.item.phone_no, [Validators.required]],
+      name: [this.item.recipientName, [Validators.required]],
+      phone_no: [this.item.phone, [Validators.required]],
       postcode: [this.item.postcode],
-      addr: [this.item.detailAddr, [Validators.required]]
+      addr: [this.item.detailAddress, [Validators.required]]
     })
   }
 
@@ -37,7 +37,7 @@ export class AddrModalComponent implements OnInit {
       this._message.error('内容不能为空');
       return false
     }else {
-      this.result = new Address(this.item.clientId, this.item.addressId, this.addrEditForm.value.name, this.addrEditForm.value.postcode, this.addrEditForm.value.phone_no, this.addrEditForm.value.addr);
+      this.result = new Address(this.item.userId, this.item.addressId, this.addrEditForm.value.name, this.addrEditForm.value.postcode, this.addrEditForm.value.phone_no, this.addrEditForm.value.addr);
       this._modal.destroy(this.result)
     }
   }

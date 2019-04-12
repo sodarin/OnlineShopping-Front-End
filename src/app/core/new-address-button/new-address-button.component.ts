@@ -24,11 +24,11 @@ export class NewAddressButtonComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.loginService$.getUserById();
+    this.user = this.loginService$.user;
   }
 
   createNewAddr() {
-    const item = new Address(this.user.id, '', this.user.username, '', '', '');
+    const item = new Address(this.user.userId, null, this.user.username, '', '', '');
     const modal = this._modal.create({
       nzTitle: '新增地址',
       nzContent: AddrModalComponent,
@@ -42,7 +42,6 @@ export class NewAddressButtonComponent implements OnInit {
     });
     modal.afterClose.subscribe(result => {
       if (result) {
-        this._message.success('新增地址成功');
         this.newAddrEvent.emit(result);
       }
     })

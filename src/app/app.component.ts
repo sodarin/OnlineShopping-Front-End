@@ -41,7 +41,7 @@ export class AppComponent {
       nzTitle: '登录',
       nzContent: LoginModalComponent,
       nzOkText: '确认',
-      nzOnOk: instance => instance.login(),
+      nzOnOk: instance => instance.isSuccessLogin(),
       nzCancelText: '取消',
       nzOnCancel: instance => instance.closeDialog(),
       nzOkLoading: false
@@ -50,6 +50,7 @@ export class AppComponent {
 
   logout(): void {
     this.loginService$.logoutService();
+    this.router.navigateByUrl('')
   }
 
   register(): void {

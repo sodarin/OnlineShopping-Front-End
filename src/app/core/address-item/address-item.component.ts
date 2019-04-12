@@ -16,7 +16,7 @@ export class AddressItemComponent implements OnInit {
   activeClass: boolean;
 
   @Output()
-  deleteEvent = new EventEmitter<string>();
+  deleteEvent = new EventEmitter<number>();
   @Output()
   modifyItem = new EventEmitter<Address>();
 
@@ -47,13 +47,12 @@ export class AddressItemComponent implements OnInit {
     modal.afterClose.subscribe(result => {
       if (result) {
        this.item = result;
-       this._message.success('修改地址成功');
        this.modifyItem.emit(this.item);
       }
     })
   }
 
-  delete(addrId: string) {
+  delete(addrId: number) {
     this.deleteEvent.emit(addrId);
   }
 

@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
   addressList: Address[];
 
   //选择地址部分所需数据
-  selectAddrId: string;
+  selectAddrId: number;
   selectResult = {name: '', addr: ''};
 
   //购物车部分所需数据
@@ -52,8 +52,8 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.loginService$.getUserById();
-    this.addressList = this.addressService$.getAddressListByClientId(this.user.id);
+    //this.user = this.loginService$.getUserById();
+    //this.addressList = this.addressService$.getAddressListByClientId(this.user.id);
     this.selectAddrId = this.addressList[0].addressId;
     this.changeSelectResult();
 
@@ -62,7 +62,7 @@ export class CartComponent implements OnInit {
   }
 
   //地址操作
-  detectAddrDelete(addrId: string) {
+  detectAddrDelete(addrId: number) {
     this.addressList = this.addressList.filter(item => item.addressId !== addrId);
     if (addrId == this.selectAddrId) {
       this.selectAddrId = this.addressList[0].addressId;
@@ -86,8 +86,8 @@ export class CartComponent implements OnInit {
   //地址选择
   changeSelectResult() {
     let addr = this.addressList.filter(item => item.addressId === this.selectAddrId)[0];
-    this.selectResult.name = addr.client_name;
-    this.selectResult.addr = addr.detailAddr
+    this.selectResult.name = addr.recipientName;
+    this.selectResult.addr = addr.detailAddress
   }
 
   detectSelectChange() {

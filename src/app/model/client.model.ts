@@ -1,7 +1,8 @@
 export class Client {
   constructor(
-    public id: string,
+    public userId: number,
+    public username: string,
     public password: string,
-    public username: string
+    public email: String
   ) {}
 }
