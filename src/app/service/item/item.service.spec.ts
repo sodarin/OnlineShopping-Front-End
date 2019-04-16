@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { KeyboardService } from './keyboard.service';
+import { ItemService } from './item.service';
 
-describe('KeyboardService', () => {
+describe('ItemService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: KeyboardService = TestBed.get(KeyboardService);
+    const service: ItemService = TestBed.get(ItemService);
     expect(service).toBeTruthy();
   });
 });

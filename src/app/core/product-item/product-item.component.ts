@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CellphoneService} from '../../service/cellphone/cellphone.service';
 import {Item} from '../../model/item.model';
 import {LoginService} from '../../service/login/login.service';
 import {NzMessageService} from 'ng-zorro-antd';
@@ -14,6 +13,9 @@ export class ProductItemComponent implements OnInit {
 
   @Input()
   item: Item;
+
+  @Input()
+  loading: boolean;
 
   isLogin: boolean;
 
@@ -41,7 +43,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   turnToDetailPage() {
-    this.router.navigateByUrl(`/detail/${this.item.id}`);
+    this.router.navigateByUrl(`/detail/${this.item.itemId}`);
   }
 
 }

@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Item} from '../../model/item.model';
-import {ComputerService} from '../../service/computer/computer.service';
-import {CellphoneService} from '../../service/cellphone/cellphone.service';
-import {MouseService} from '../../service/mouse/mouse.service';
-import {EarphoneService} from '../../service/earphone/earphone.service';
-import {KeyboardService} from '../../service/keyboard/keyboard.service';
 import {LoginService} from '../../service/login/login.service';
 import {NzMessageService} from 'ng-zorro-antd';
+import {ItemService} from '../../service/item/item.service';
 
 @Component({
   selector: 'app-detail-page',
@@ -24,11 +20,7 @@ export class DetailPageComponent implements OnInit {
 
   constructor(
     private routeInfo: ActivatedRoute,
-    private computerService$: ComputerService,
-    private cellphoneService$: CellphoneService,
-    private mouseService$: MouseService,
-    private earphoneService$: EarphoneService,
-    private keyboardService$: KeyboardService,
+    private itemService$: ItemService,
     private loginService$: LoginService,
     private _message: NzMessageService,
   ) {
@@ -37,14 +29,9 @@ export class DetailPageComponent implements OnInit {
 
   ngOnInit() {
     let itemId = this.routeInfo.snapshot.params['id'];
-    if (itemId.startsWith('10')) {
-      this.item = this.computerService$.getComputerById(itemId);
-      console.log(this.item)
-    }
-    if (itemId.startsWith('20')){
-      this.item = this.cellphoneService$.getCellphoneById(itemId);
-      console.log(this.item);
-    }
+    this.itemService$.getDetailById(itemId).subscribe( result => {
+      this.item = result;
+    })
   }
 
   addToShoppingCart() {

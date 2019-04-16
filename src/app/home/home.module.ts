@@ -6,8 +6,6 @@ import { HomeComponent } from './home.component';
 import {HomeRoutingModule} from './home-routing.module';
 import {LoginService} from '../service/login/login.service';
 import {LoginModalComponent} from '../core/modal/login-modal/login-modal.component';
-import {CellphoneService} from '../service/cellphone/cellphone.service';
-import {ComputerService} from '../service/computer/computer.service';
 
 @NgModule({
   declarations: [HomeComponent],

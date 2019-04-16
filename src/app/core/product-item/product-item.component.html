@@ -1,18 +1,20 @@
-<nz-card [nzCover]="coverTemplate" [nzActions]="[actionPrice, actionPurchase]" [nzHoverable]="true">
-  <nz-card-meta (click)="turnToDetailPage()" [nzTitle]="itemName" [nzDescription]="itemDesc"></nz-card-meta>
-</nz-card>
-<ng-template #coverTemplate>
-  <img [alt]="item.name" (click)="turnToDetailPage()" [src]="item.img" />
-</ng-template>
-<ng-template #actionPrice>
-  <div>￥ {{item.price}}</div>
-</ng-template>
-<ng-template #actionPurchase>
-  <span (click)="addToShoppingCart()"><i nz-icon type="shopping-cart"></i> 购买</span>
-</ng-template>
-<ng-template #itemName>
-  <span>{{item.name}}</span>
-</ng-template>
-<ng-template #itemDesc>
-  <span nz-tooltip nzPlacement="topLeft" [nzTitle]="item.desc">{{item.desc}}</span>
-</ng-template>
+<nz-spin [nzSpinning]="loading">
+  <nz-card [nzCover]="coverTemplate" [nzActions]="[actionPrice, actionPurchase]" [nzHoverable]="true">
+    <nz-card-meta (click)="turnToDetailPage()" [nzTitle]="itemName" [nzDescription]="itemDesc"></nz-card-meta>
+  </nz-card>
+  <ng-template #coverTemplate>
+    <img [alt]="item.name" (click)="turnToDetailPage()" [src]="item.imgUrl" />
+  </ng-template>
+  <ng-template #actionPrice>
+    <div>￥ {{item.price}}</div>
+  </ng-template>
+  <ng-template #actionPurchase>
+    <span (click)="addToShoppingCart()"><i nz-icon type="shopping-cart"></i> 购买</span>
+  </ng-template>
+  <ng-template #itemName>
+    <span>{{item.name}}</span>
+  </ng-template>
+  <ng-template #itemDesc>
+    <span nz-tooltip nzPlacement="topLeft" [nzTitle]="item.desc">{{item.desc}}</span>
+  </ng-template>
+</nz-spin>

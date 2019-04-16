@@ -19,19 +19,15 @@ import {RecycleModule} from './recycle/recycle.module';
 import {ShoppingModule} from './shopping/shopping.module';
 import {UserModule} from './user/user.module';
 import {RegisterModalComponent} from './core/modal/register-modal/register-modal.component';
-import {CellphoneService} from './service/cellphone/cellphone.service';
-import {ComputerService} from './service/computer/computer.service';
 import {AddressService} from './service/address/address.service';
 import {AddrModalComponent} from './core/modal/addr-modal/addr-modal.component';
 import {ShoppingCartService} from './service/shoppingCart/shopping-cart.service';
 import {OrderDetailComponent} from './core/modal/order-detail/order-detail.component';
-import {KeyboardService} from './service/keyboard/keyboard.service';
-import {MouseService} from './service/mouse/mouse.service';
-import {EarphoneService} from './service/earphone/earphone.service';
 import {RecycleService} from './service/recycle/recycle.service';
 import {AddRecycleOrderComponent} from './core/modal/add-recycle-order/add-recycle-order.component';
 import {ShowRecycleDetailComponent} from './core/modal/show-recycle-detail/show-recycle-detail.component';
 import { QuillModule } from 'ngx-quill'
+import {ItemService} from './service/item/item.service';
 
 
 registerLocaleData(en);
@@ -60,13 +56,9 @@ registerLocaleData(en);
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     LoginService,
-    CellphoneService,
-    ComputerService,
     AddressService,
     ShoppingCartService,
-    KeyboardService,
-    MouseService,
-    EarphoneService,
+    ItemService,
     RecycleService
   ],
   entryComponents: [

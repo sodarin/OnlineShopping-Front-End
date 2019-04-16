@@ -5,8 +5,6 @@ import {Client} from '../../model/client.model';
 import {Address} from '../../model/address.model';
 import {ShoppingCartItem} from '../../model/shopping-cart-item.model';
 import {ShoppingCartService} from '../../service/shoppingCart/shopping-cart.service';
-import {Computer} from '../../model/computer.model';
-import {Cellphone} from '../../model/cellphone.model';
 import {Router} from '@angular/router';
 import {NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
 
@@ -52,35 +50,49 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.user = this.loginService$.getUserById();
-    //this.addressList = this.addressService$.getAddressListByClientId(this.user.id);
-    this.selectAddrId = this.addressList[0].addressId;
-    this.changeSelectResult();
+    this.user = this.loginService$.user;
+    if (this.user == null) {
+      this.router.navigateByUrl('');
+      this._message.warning("请先登录");
+    } else {
+      this.searchAddress();
+      this.searchData();
+    }
+  }
 
-    this.searchData();
-
+  searchAddress(selectId?) {
+    this.addressService$.getAddressListByUserId(this.user.userId).subscribe( result => {
+      this.addressList = result;
+      if (selectId == null)
+        this.selectAddrId = this.addressList[0].addressId;
+      else
+        this.selectAddrId = selectId;
+      this.changeSelectResult();
+    }, error1 => this._message.error(error1.error));
   }
 
   //地址操作
   detectAddrDelete(addrId: number) {
-    this.addressList = this.addressList.filter(item => item.addressId !== addrId);
-    if (addrId == this.selectAddrId) {
-      this.selectAddrId = this.addressList[0].addressId;
-      this.changeSelectResult()
-    }
+    this.addressService$.deleteAddress(this.user.userId, addrId).subscribe( result => {
+      this._message.success("删除地址成功！");
+      if (addrId == this.selectAddrId)
+        this.selectAddrId = this.addressList[0].addressId;
+      this.searchAddress(this.selectAddrId)
+    }, error1 => this._message.error(error1.error))
   }
 
   detectAddrModify(addr: Address) {
-    this.addressList.forEach((item, index) => {
-      if (item.addressId == addr.addressId){
-        this.addressList[index] = addr;
-      }
-    });
-    this.changeSelectResult()
+    this.addressService$.updateAddress(addr).subscribe( result => {
+      this._message.success("修改地址成功！");
+      this.searchAddress(addr.addressId);
+    }, error1 => this._message.error(error1.error))
   }
 
   addNewAddr(addr: Address) {
-    this.addressList.push(addr)
+    this.addressService$.createAddress(addr).subscribe( result => {
+      this._message.success("新增地址成功！");
+      this.searchAddress(this.selectAddrId)
+    }, error1 => this._message.error(error1.error))
   }
 
   //地址选择

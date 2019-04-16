@@ -8,13 +8,13 @@
       <p class="select-name">收件人：{{selectResult.name}}</p>
       <p class="select-addr">收件地址：{{selectResult.addr}}</p>
     </div>
-    <div nz-row nzGutter="16">
+    <div *ngIf="addressList" nz-row nzGutter="16">
       <form>
         <div *ngFor="let address of addressList" nz-col nzSpan="6">
           <label>
             <app-address-item [activeClass]="selectAddrId == address.addressId" [item]="address" (deleteEvent)="detectAddrDelete($event)" (modifyItem)="detectAddrModify($event)"></app-address-item>
             <i class="select-icon" nz-icon type="check" *ngIf="selectAddrId == address.addressId"></i>
-            <input type="radio" [name]="address.clientId" [id]="address.addressId" [value]="address.addressId" [(ngModel)]="selectAddrId" (ngModelChange)="detectSelectChange()">
+            <input type="radio" [name]="address.userId.toString()" [id]="address.addressId" [value]="address.addressId" [(ngModel)]="selectAddrId" (ngModelChange)="detectSelectChange()">
           </label>
         </div>
       </form>

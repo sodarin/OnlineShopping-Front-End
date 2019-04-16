@@ -1,9 +1,13 @@
 <div class="display-page">
-  <app-search-button></app-search-button>
+  <app-search-button (searchContent)="search($event)"></app-search-button>
   <div class="display-row" nz-row nzGutter="16">
     <div *ngFor="let listItem of earphoneList">
-      <app-product-item nz-col class="gutter-row" nzSpan="6" [item]="listItem"></app-product-item>
+      <app-product-item nz-col class="gutter-row" nzSpan="6" [item]="listItem" [loading]="loading"></app-product-item>
     </div>
   </div>
+  <div *ngIf="earphoneList == null">
+    <nz-empty [nzNotFoundContent]="'没有您想要查找的商品呢'"></nz-empty>
+  </div>
+  <nz-pagination *ngIf="earphoneList != null" [(nzPageIndex)]="pageIndex" [nzTotal]="total" [nzPageSize]="8" (nzPageIndexChange)="newPage()"></nz-pagination>
 </div>
 <app-back-top></app-back-top>

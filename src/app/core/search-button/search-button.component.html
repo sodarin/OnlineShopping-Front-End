@@ -1,8 +1,8 @@
 <div class="search-component">
   <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-    <input type="text" nz-input placeholder="输入搜索内容" />
+    <input type="text" [(ngModel)]="content" nz-input placeholder="输入搜索内容" />
   </nz-input-group>
   <ng-template #suffixIconButton>
-    <button nz-button nzType="primary" nzSearch><i nz-icon type="search"></i></button>
+    <button nz-button nzType="primary" nzSearch (click)="onSearch()"><i nz-icon type="search"></i></button>
   </ng-template>
 </div>

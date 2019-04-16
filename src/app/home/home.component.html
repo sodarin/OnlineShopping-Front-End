@@ -8,7 +8,7 @@
     </nz-divider>
     <div class="display-row" nz-row nzGutter="16">
       <div *ngFor="let listItem of type.list">
-        <app-product-item nz-col class="gutter-row" nzSpan="6" [item]="listItem"></app-product-item>
+        <app-product-item nz-col class="gutter-row" nzSpan="6" [item]="listItem" [loading]="type.loading"></app-product-item>
       </div>
     </div>
   </div>

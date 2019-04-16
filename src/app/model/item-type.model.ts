@@ -1,7 +1,7 @@
 export enum ItemType {
-  COMPUTER = 'computer',
-  EARPHONE = 'earphone',
-  MOUSE = 'mouse',
-  KEYBOARD = 'keyboard',
-  CELLPHONE = 'cellphone'
+  COMPUTER = 'COMPUTER',
+  EARPHONE = 'EARPHONE',
+  MOUSE = 'MOUSE',
+  KEYBOARD = 'KEYBOARD',
+  CELLPHONE = 'CELLPHONE'
 }
