@@ -1,11 +1,13 @@
 export class ShoppingCartItem {
   constructor(
-    public id: string,
-    public clientId: string,
+    public shoppingCartItemId: number,
+    public userId: number,
+    public itemId: number,
+    public totalNumber: number,
     public imgUrl: string,
-    public itemName: string,
-    public itemPrice: number,
-    public itemId: string,
-    public item_num: number
+    public name: string,
+    public price: number,
+    private totalPrice: number,
+    private inventory: number
   ) {}
 }

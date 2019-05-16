@@ -1,12 +1,12 @@
 <div class="order-detail-modal">
   <div class="addr-info">
     <div class="client-basic-info">
-      <span>{{item.clientName}}</span>
-      <span>{{item.clientPhone}}</span>
+      <span>{{address?.recipientName}}</span>
+      <span>{{address?.phone}}</span>
     </div>
-    <span class="postcode">{{item.clientPostcode}}</span>
+    <span class="postcode">{{address?.postcode}}</span>
     <div class="addr-detail">
-      <span>{{item.clientAddr}}</span>
+      <span>{{address?.detailAddress}}</span>
     </div>
   </div>
 
@@ -36,13 +36,13 @@
       </div>
       <div class="item-detail">
         <div class="item-name">{{itemData.name}}</div>
-        <div class="num-price">X{{itemData.num}}: ￥{{itemData.totalPrice}}</div>
+        <div class="num-price">X{{itemData.num}}: ￥{{itemData.totalPrice | number: '.2'}}</div>
       </div>
     </div>
     <nz-divider></nz-divider>
   </div>
 
   <div class="price-zone">
-    <span>￥{{price}}</span>
+    <span>￥{{price | number: '.2'}}</span>
   </div>
 </div>

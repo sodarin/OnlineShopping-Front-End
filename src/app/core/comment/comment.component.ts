@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { distanceInWords } from 'date-fns';
 import {PassageComment} from '../../model/comment.model';
 import {PassageService} from '../../service/passage/passage.service';
+import {Client} from '../../model/client.model';
 
 @Component({
   selector: 'app-comment',
@@ -12,23 +13,25 @@ export class CommentComponent implements OnInit {
 
   @Input()
   comment: PassageComment;
-  replyObject;
+  replyObject: PassageComment;
+
 
   @Output()
-  repleyObjectEvent = new EventEmitter<string>();
+  repleyObjectEvent = new EventEmitter<number>();
 
-  time = distanceInWords(new Date(), new Date());
 
   constructor(
-    private passageService$: PassageService
+    private passageService$: PassageService,
   ) { }
 
   ngOnInit() {
-    if (this.comment.reply_criticId)
-      this.replyObject = this.passageService$.getReplyObjectByCriticId(this.comment.reply_criticId)
+    if (this.comment.replyCommentId)
+      this.passageService$.getCommentDetail(this.comment.replyCommentId).subscribe( result => {
+        this.replyObject = result;
+      })
   }
 
-  emitReplyObject(id: string) {
+  emitReplyObject(id: number) {
     this.repleyObjectEvent.emit(id)
   }
 

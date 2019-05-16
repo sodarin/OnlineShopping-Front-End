@@ -1,28 +1,69 @@
 <div class="passage-page">
   <button class="create-button" nzShape="circle" nzSize="large" nz-button nzType="primary" (click)="open()"><i nz-icon type="plus"></i></button>
   <app-search-button></app-search-button>
-  <div class="passage-list">
+  <div class="passage-list" *ngIf="passageList.length > 0">
     <div class="display-row" nz-row nzGutter="16">
       <div class="passage" *ngFor="let passage of passageList">
-        <app-passege [passage]="passage" nz-col class="gutter-row" nzSpan="12"></app-passege>
+        <app-passege (outputPassageId)="viewFullPassage($event)" [loading]="loading" [passage]="passage" nz-col class="gutter-row" nzSpan="12"></app-passege>
       </div>
     </div>
   </div>
+
+  <nz-pagination *ngIf="passageList.length > 0" [(nzPageIndex)]="pageIndex" [nzTotal]="total" [nzPageSize]="8" (nzPageIndexChange)="searchData()"></nz-pagination>
 
   <nz-drawer
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
     [nzMaskClosable]="false"
     [nzWidth]="720"
-    [nzVisible]="visible"
+    [nzVisible]="createPassageVisible"
     nzTitle="发表新文章"
-    (nzOnClose)="close()"
-  >
-    <quill-editor [(ngModel)]="editorContent" (onContentChanged)="print()"></quill-editor>
+    (nzOnClose)="closeCreatePassage()">
+
+    <textarea rows="4" nz-input [(ngModel)]="inputTitle" [placeholder]="'请输入文章标题'" style="width: 100%"></textarea>
+
+    <quill-editor [(ngModel)]="editorContent"></quill-editor>
 
     <div class="footer">
-      <button nz-button (click)="close()" nzType="primary" style="margin-top: 15px;">提交</button>
+      <button nz-button (click)="submit()" nzType="primary" style="margin-top: 15px;">提交</button>
     </div>
   </nz-drawer>
 
-  <div id="test"></div>
+  <nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
+    [nzMaskClosable]="false"
+    [nzWidth]="720"
+    [nzVisible]="viewPassageVisible"
+    nzTitle="查看文章"
+    (nzOnClose)="closeViewPassage()"
+  >
+    <div class="content">
+      <div style="text-align: center;font-size: 20px;color: #000;margin-bottom: 8px;" id="title"></div>
+      <p id="content"></p>
+    </div>
+    <div *ngIf="commentList">
+      <div *ngFor="let comment of commentList">
+        <app-comment (repleyObjectEvent)="confirmReplyObject($event)" [comment]="comment"></app-comment>
+      </div>
+      <nz-pagination *ngIf="commentList" [(nzPageIndex)]="commentPageIndex" [nzTotal]="commentTotal" [nzSize]="'small'" [nzPageSize]="8" (nzPageIndexChange)="searchCommentList(detailPassage.passageId)"></nz-pagination>
+    </div>
+    <nz-comment>
+      <nz-avatar
+        nz-comment-avatar
+        nzIcon="user"
+        nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+      ></nz-avatar>
+      <nz-comment-content>
+        <nz-form-item>
+          <textarea [(ngModel)]="inputContent" nz-input rows="4" (ngModelChange)="detectContentChange()"></textarea>
+        </nz-form-item>
+        <nz-form-item>
+          <button nz-button nzType="primary" (click)="submitComment()">
+            回复
+          </button>
+        </nz-form-item>
+      </nz-comment-content>
+    </nz-comment>
+  </nz-drawer>
+
+  <app-back-top></app-back-top>
 </div>

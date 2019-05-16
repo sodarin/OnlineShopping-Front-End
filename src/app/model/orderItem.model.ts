@@ -2,11 +2,11 @@ import {ItemType} from './item-type.model';
 
 export class OrderItem {
   constructor(
-    public itemId: string,
-    public itemName: string,
-    public itemNum: number,
-    public itemPrice: number,
-    public itemImg: string,
-    public itemType: ItemType
+    public orderItemId: number,
+    public itemId: number,
+    public name: string,
+    public number: number,
+    public price: number,
+    public imgUrl: string,
   ) {}
 }

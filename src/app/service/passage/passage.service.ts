@@ -1,41 +1,54 @@
 import { Injectable } from '@angular/core';
 import {PassageComment} from '../../model/comment.model';
 import {Passage} from '../../model/passage.model';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PassageService {
 
-  commentList: PassageComment[] = [
-    new PassageComment('1', 'sodarin', new Date(), '我觉得文章说得很不错', '1'),
-    new PassageComment('2', 'zzzz', new Date(), '我也觉得文章说得很不错', '1', '1'),
-    new PassageComment('3', 'ccc', new Date(), '我也觉得文章说得很不错', '1', '2'),
-    new PassageComment('4', 'aaa', new Date(), '我觉得文章说得一般', '1'),
-    new PassageComment('5', 'qwer', new Date(), '我倒是觉得文章说得很不错', '1', '4'),
-    new PassageComment('6', 'asdf', new Date(), '我觉得文章说得很不错', '1'),
-    new PassageComment('7', 'wer', new Date(), '我觉得文章说得很不错', '1'),
-    new PassageComment('8', 'zzasdfzz', new Date(), '我觉得文章说得很不错', '1'),
-  ];
 
-  passage = new Passage('1', '1', 'sodarin', new Date(),
-    '如何挑选笔记本电脑',
-    '随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写随便写写。',
-    this.commentList);
+  constructor(private _http: HttpClient) { }
 
-  passageList: Passage[] = [this.passage, this.passage, this.passage, this.passage, this.passage, this.passage, this.passage, this.passage, this.passage, this.passage];
-
-  constructor() { }
-
-  getPassageList() {
-    return this.passageList
+  getPassageList(targetPage: number, pageSize: number): Observable<any> {
+    const param = new HttpParams()
+      .set("targetPage", targetPage.toString())
+      .set("pageSize", pageSize.toString());
+    return this._http.get(`/api/passage/list`, {params: param});
   }
 
-  getReplyObjectByCriticId(id: string): PassageComment {
-    return this.commentList.find(item => item.criticId == id);
+  createPassage(userId: number, title: string, content: string): Observable<any> {
+    return this._http.post(`/api/passage/create`, {
+      userId: userId,
+      title: title,
+      content: content
+    })
   }
 
-  getCommentByCrititcId(id: string): PassageComment {
-    return this.commentList.find(item => item.criticId == id)
+  getPassageById(passageId: number): Observable<Passage> {
+    return this._http.get<Passage>(`/api/passage/detail/${passageId}`)
+  }
+
+  getCommentListByPassageId(targetPage: number, pageSize: number, passageId: number): Observable<any> {
+    const param = new HttpParams()
+      .set('targetPage', targetPage.toString())
+      .set('pageSize', pageSize.toString())
+      .set('passageId', passageId.toString());
+    return this._http.get(`/api/comment/list`, {params: param})
+  }
+
+  getCommentDetail(commentId: number): Observable<PassageComment> {
+    return this._http.get<PassageComment>(`/api/comment/detail/${commentId}`)
+  }
+
+  createComment(passageId: number, userId: number, content: String, replyCommentId: number): Observable<any> {
+    return this._http.post(`/api/comment/create`, {
+      passageId: passageId,
+      userId: userId,
+      content: content,
+      replyCommentId: replyCommentId
+    })
   }
 }

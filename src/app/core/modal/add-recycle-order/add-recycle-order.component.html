@@ -17,29 +17,29 @@
       <nz-divider></nz-divider>
       <div class="addr-info">
         <div class="client-basic-info">
-          <span>收件人姓名：{{specifiedOrder?.clientName}}</span>
+          <span>收件人姓名：{{address?.recipientName}}</span>
         </div>
-        <span>收件人手机号码：{{specifiedOrder?.clientPhone}}</span>
+        <span>收件人手机号码：{{address?.phone}}</span>
         <div class="addr-detail">
-          <span>收件地址： {{specifiedOrder?.clientAddr}}</span>
+          <span>收件地址： {{address?.detailAddress}}</span>
         </div>
       </div>
       <nz-divider></nz-divider>
       <div class="item-display" *ngFor="let itemData of orderItemsList">
         <div (click)="selectRecycleItem(itemData)" class="item-info" [class.active]="selectedItem?.itemId == itemData.itemId">
           <div class="item-img">
-            <img [src]="itemData?.itemImg" [alt]="itemData?.itemName">
+            <img [src]="itemData?.imgUrl" [alt]="itemData?.name">
           </div>
           <div class="item-detail">
-            <div class="item-name">{{itemData?.itemName}}</div>
-            <div class="price">原价：￥{{itemData?.itemPrice}}</div>
+            <div class="item-name">{{itemData?.name}}</div>
+            <div class="price">原价：￥{{itemData?.price}}</div>
           </div>
         </div>
         <nz-divider></nz-divider>
       </div>
     </div>
 
-    <div *ngIf="selectedItem != null"><span>已选择回收商品：{{selectedItem.itemName}}</span></div>
+    <div *ngIf="selectedItem != null"><span>已选择回收商品：{{selectedItem.name}}</span></div>
 
   </div>
 
@@ -48,7 +48,7 @@
   <div class="second-step-content" *ngIf="current == 1">
 
     <nz-input-group class="purchase-time" nzAddOnBefore="购买时间：">
-      <input nz-input [placeholder]="specifiedOrder.orderTime | date: 'yyyy-MM-dd HH:mm:ss'" [disabled]="true" />
+      <input nz-input [placeholder]="specifiedOrder.tradingTime | date: 'yyyy-MM-dd HH:mm:ss'" [disabled]="true" />
     </nz-input-group>
     <div class="use-status">
       <nz-select style="width: 100%;" [(ngModel)]="useStatus" nzAllowClear nzPlaceHolder="产品使用状态">
@@ -61,48 +61,48 @@
       </nz-select>
     </div>
     <div class="component-status">
-      <nz-select style="width: 30%;" *ngIf="selectedItem.itemType == 'computer'" [(ngModel)]="cpuStatus" nzAllowClear nzPlaceHolder="处理器">
-        <nz-option nzValue ="i3" nzLabel="i3"></nz-option>
-        <nz-option nzValue ="i5" nzLabel="i5"></nz-option>
-        <nz-option nzValue ="i7" nzLabel="i7"></nz-option>
+      <nz-select style="width: 30%;" *ngIf="item.type == 'COMPUTER'" [(ngModel)]="cpuStatus" nzAllowClear nzPlaceHolder="处理器">
+        <nz-option nzValue ="1" nzLabel="i3"></nz-option>
+        <nz-option nzValue ="2" nzLabel="i5"></nz-option>
+        <nz-option nzValue ="3" nzLabel="i7"></nz-option>
       </nz-select>
-      <nz-select style="width: 30%;" *ngIf="selectedItem.itemType == 'computer'" [(ngModel)]="memoryStatus" nzAllowClear nzPlaceHolder="内存">
-        <nz-option nzValue ="4" nzLabel="4g"></nz-option>
-        <nz-option nzValue ="8" nzLabel="8g"></nz-option>
-        <nz-option nzValue ="16" nzLabel="16g"></nz-option>
-        <nz-option nzValue ="32+" nzLabel="32g及以上"></nz-option>
+      <nz-select style="width: 30%;" *ngIf="item.type == 'COMPUTER'" [(ngModel)]="memoryStatus" nzAllowClear nzPlaceHolder="内存">
+        <nz-option nzValue ="1" nzLabel="4g"></nz-option>
+        <nz-option nzValue ="2" nzLabel="8g"></nz-option>
+        <nz-option nzValue ="3" nzLabel="16g"></nz-option>
+        <nz-option nzValue ="4" nzLabel="32g及以上"></nz-option>
       </nz-select>
-      <nz-select style="width: 30%;" *ngIf="selectedItem.itemType == 'computer'" [(ngModel)]="ssdStatus" nzAllowClear nzPlaceHolder="固态硬盘">
-        <nz-option nzValue ="0" nzLabel="无固态硬盘"></nz-option>
-        <nz-option nzValue ="128" nzLabel="128g"></nz-option>
-        <nz-option nzValue ="256" nzLabel="256g"></nz-option>
-        <nz-option nzValue ="512+" nzLabel="512g及以上"></nz-option>
-      </nz-select>
-
-      <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'cellphone'" [(ngModel)]="memoryStatus" nzAllowClear nzPlaceHolder="内存">
-        <nz-option nzValue ="4" nzLabel="4g"></nz-option>
-        <nz-option nzValue ="8" nzLabel="8g"></nz-option>
-        <nz-option nzValue ="16" nzLabel="16g"></nz-option>
-        <nz-option nzValue ="32+" nzLabel="32g及以上"></nz-option>
-      </nz-select>
-      <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'cellphone'" [(ngModel)]="ssdStatus" nzAllowClear nzPlaceHolder="手机存储大小">
-        <nz-option nzValue ="32" nzLabel="32g"></nz-option>
-        <nz-option nzValue ="64" nzLabel="64g"></nz-option>
-        <nz-option nzValue ="128" nzLabel="128g"></nz-option>
+      <nz-select style="width: 30%;" *ngIf="item.type == 'COMPUTER'" [(ngModel)]="ssdStatus" nzAllowClear nzPlaceHolder="固态硬盘">
+        <nz-option nzValue ="1" nzLabel="无固态硬盘"></nz-option>
+        <nz-option nzValue ="2" nzLabel="128g"></nz-option>
+        <nz-option nzValue ="3" nzLabel="256g"></nz-option>
+        <nz-option nzValue ="4" nzLabel="512g及以上"></nz-option>
       </nz-select>
 
-      <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'earphone'" [(ngModel)]="voiceStatus" nzAllowClear nzPlaceHolder="声音情况">
+      <nz-select style="width: 50%;" *ngIf="item.type == 'CELLPHONE'" [(ngModel)]="memoryStatus" nzAllowClear nzPlaceHolder="内存">
+        <nz-option nzValue ="1" nzLabel="4g"></nz-option>
+        <nz-option nzValue ="2" nzLabel="8g"></nz-option>
+        <nz-option nzValue ="3" nzLabel="16g"></nz-option>
+        <nz-option nzValue ="4" nzLabel="32g及以上"></nz-option>
+      </nz-select>
+      <nz-select style="width: 50%;" *ngIf="item.type == 'CELLPHONE'" [(ngModel)]="ssdStatus" nzAllowClear nzPlaceHolder="手机存储大小">
+        <nz-option nzValue ="1" nzLabel="32g"></nz-option>
+        <nz-option nzValue ="2" nzLabel="64g"></nz-option>
+        <nz-option nzValue ="3" nzLabel="128g"></nz-option>
+      </nz-select>
+
+      <nz-select style="width: 50%;" *ngIf="item.type == 'EARPHONE'" [(ngModel)]="voiceStatus" nzAllowClear nzPlaceHolder="声音情况">
         <nz-option nzValue ="0" nzLabel="声音异常或有杂音偏音"></nz-option>
         <nz-option nzValue ="1" nzLabel="声音正常"></nz-option>
       </nz-select>
-      <nz-select style="width: 50%;" *ngIf="selectedItem.itemType == 'earphone'" [(ngModel)]="fixStatus" nzAllowClear nzPlaceHolder="有无拆修史">
+      <nz-select style="width: 50%;" *ngIf="item.type == 'EARPHONE'" [(ngModel)]="fixStatus" nzAllowClear nzPlaceHolder="有无拆修史">
         <nz-option nzValue ="0" nzLabel="有拆修"></nz-option>
         <nz-option nzValue ="1" nzLabel="无拆无修"></nz-option>
       </nz-select>
     </div>
 
     <div class="component-replace">
-      <nz-select *ngIf="selectedItem.itemType == 'computer'"
+      <nz-select *ngIf="item.type == 'COMPUTER'"
         style="width: 100%;"
         nzMode="multiple"
         [(ngModel)]="componentReplaceSelectedStatusList"
@@ -111,7 +111,7 @@
         <nz-option *ngFor="let option of computerComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'cellphone'"
+      <nz-select *ngIf="item.type == 'CELLPHONE'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="componentReplaceSelectedStatusList"
@@ -120,7 +120,7 @@
         <nz-option *ngFor="let option of cellphoneComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'earphone'"
+      <nz-select *ngIf="item.type == 'EARPHONE'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="componentReplaceSelectedStatusList"
@@ -129,7 +129,7 @@
         <nz-option *ngFor="let option of earphoneComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'mouse'"
+      <nz-select *ngIf="item.type == 'MOUSE'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="componentReplaceSelectedStatusList"
@@ -138,7 +138,7 @@
         <nz-option *ngFor="let option of mouseComponentReplaceStatusList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && componentReplaceDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'keyboard'"
+      <nz-select *ngIf="item.type == 'KEYBOARD'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="componentReplaceSelectedStatusList"
@@ -149,7 +149,7 @@
     </div>
 
     <div class="vital-problem">
-      <nz-select *ngIf="selectedItem.itemType == 'computer'"
+      <nz-select *ngIf="item.type == 'COMPUTER'"
         style="width: 100%;"
         nzMode="multiple"
         [(ngModel)]="vitalProblemList"
@@ -158,7 +158,7 @@
         <nz-option *ngFor="let option of computerVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'cellphone'"
+      <nz-select *ngIf="item.type == 'CELLPHONE'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="vitalProblemList"
@@ -167,7 +167,7 @@
         <nz-option *ngFor="let option of cellphoneVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'earphone'"
+      <nz-select *ngIf="item.type == 'EARPHONE'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="vitalProblemList"
@@ -176,7 +176,7 @@
         <nz-option *ngFor="let option of earphoneVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'mouse'"
+      <nz-select *ngIf="item.type == 'MOUSE'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="vitalProblemList"
@@ -185,7 +185,7 @@
         <nz-option *ngFor="let option of mouseVitalProblemList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.value != '0' && vitalProbleDisabled"></nz-option>
       </nz-select>
 
-      <nz-select *ngIf="selectedItem.itemType == 'keyboard'"
+      <nz-select *ngIf="item.type == 'KEYBOARD'"
                  style="width: 100%;"
                  nzMode="multiple"
                  [(ngModel)]="vitalProblemList"
@@ -211,7 +211,7 @@
   <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
     <span>上一步</span>
   </button>
-  <button nzType="primary" [disabled]="((selectedItem == null) && (current == 0)) || (((cpuStatus == null || memoryStatus == null || ssdStatus == null) && (voiceStatus == null || fixStatus == null) || componentReplaceSelectedStatusList.length == 0 || vitalProblemList.length == 0) && current == 1)" nz-button (click)="next()" *ngIf="current < 2">
+  <button nzType="primary" [disabled]="((selectedItem == null) && (current == 0)) || (((cpuStatus == null || memoryStatus == null || ssdStatus == null) && (voiceStatus == null || fixStatus == null) && ( memoryStatus == null || ssdStatus == null) || useStatus == null || componentReplaceSelectedStatusList.length == 0 || vitalProblemList.length == 0) && current == 1)" nz-button (click)="next()" *ngIf="current < 2">
     <span>下一步</span>
   </button>
   <button nz-button nzType="primary" (click)="submit()" *ngIf="current == 2">

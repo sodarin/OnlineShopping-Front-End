@@ -2,7 +2,7 @@ import {ItemType} from './item-type.model';
 
 export class Item {
   constructor(
-    public itemId: string,
+    public itemId: number,
     public name: string,
     public price: number,
     public desc: string,

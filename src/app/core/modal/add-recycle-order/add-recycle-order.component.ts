@@ -1,8 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NzMessageService, NzModalRef} from 'ng-zorro-antd';
 import {OrderService} from '../../../service/order/order.service';
 import {Order} from '../../../model/order.model';
 import {OrderItem} from '../../../model/orderItem.model';
+import {LoginService} from '../../../service/login/login.service';
+import {AddressService} from '../../../service/address/address.service';
+import {Address} from '../../../model/address.model';
+import {StatusEnum} from '../../../model/statusEnum.model';
+import {Item} from '../../../model/item.model';
+import {ItemService} from '../../../service/item/item.service';
+import {RecycleDetailParam} from '../../../model/RecycleDetailParam';
+import {RecycleComponentStatusParam} from '../../../model/RecycleComponentStatusParam';
+import {RecycleVitalProblemParam} from '../../../model/RecycleVitalProblemParam';
+import {RecycleService} from '../../../service/recycle/recycle.service';
 
 @Component({
   selector: 'app-add-recycle-order',
@@ -17,6 +27,8 @@ export class AddRecycleOrderComponent implements OnInit {
   specifiedOrder: Order = null;
   orderItemsList: OrderItem[];
   selectedItem: OrderItem;
+  address: Address;
+  item: Item;
 
   useStatus: any;
 
@@ -125,7 +137,11 @@ export class AddRecycleOrderComponent implements OnInit {
   constructor(
     private _modal: NzModalRef,
     private _message: NzMessageService,
-    private orderService$: OrderService
+    private orderService$: OrderService,
+    private loginService$: LoginService,
+    private addressService$: AddressService,
+    private itemService$: ItemService,
+    private recycleService$: RecycleService
   ) { }
 
   ngOnInit() {
@@ -140,8 +156,28 @@ export class AddRecycleOrderComponent implements OnInit {
     this.current += 1;
   }
 
-  submit() {
-    this._modal.destroy()
+  submit(): boolean {
+    console.log(this.ssdStatus);
+    console.log(this.memoryStatus);
+    console.log(this.componentReplaceSelectedStatusList);
+    console.log(this.vitalProblemList);
+    let flag: boolean = false;
+    let recycleDetailParam = new RecycleDetailParam(this.specifiedOrder.tradingTime, this.useStatus, this.cpuStatus, this.memoryStatus, this.ssdStatus, this.voiceStatus, this.fixStatus);
+    let recycleComponentStatusList: RecycleComponentStatusParam[] = [];
+    let recycleVitalProblemList: RecycleVitalProblemParam[] = [];
+    this.componentReplaceSelectedStatusList.forEach( item => {
+      recycleComponentStatusList.push(new RecycleComponentStatusParam(item))
+    });
+    this.vitalProblemList.forEach(item => {
+      recycleVitalProblemList.push(new RecycleVitalProblemParam(item))
+    });
+    this.recycleService$.createNewRecycleOrder(this.loginService$.user.userId, this.specifiedOrder.orderId, this.item.itemId, 500, recycleDetailParam, recycleVitalProblemList, recycleComponentStatusList).subscribe( result => {
+      this._message.success("提交成功！");
+      this._modal.destroy("success")
+    }, error1 => {
+      this._message.error(error1.error);
+    });
+    return flag
   }
 
   cancel() {
@@ -152,19 +188,31 @@ export class AddRecycleOrderComponent implements OnInit {
     if (this.orderId == '') {
       this._message.error('订单编号不能为空')
     } else {
-      this.specifiedOrder = this.orderService$.getOrderItemListByOrderId(this.orderId);
-      if (this.specifiedOrder == null)
-        this._message.error('没有指定的订单编号');
-      else {
-        this.orderItemsList = this.specifiedOrder.orderItems;
-        this._message.success('已查询到指定订单');
-        this.selectedItem = null
-      }
+      this.orderService$.getOrderById(Number(this.orderId), this.loginService$.user.userId).subscribe( result => {
+        if (result == null)
+          this._message.error('没有指定的订单编号');
+        else {
+          if (result.status == StatusEnum.REFUND_REQUESTED || result.status == StatusEnum.REFUND) {
+            this._message.error("该订单已申请退款")
+          } else {
+            this.specifiedOrder = result;
+            this.orderItemsList = this.specifiedOrder.orderItemDetails;
+            this._message.success('已查询到指定订单');
+            this.selectedItem = null;
+            this.addressService$.getAddressByAddressId(result.addressId).subscribe( result => {
+              this.address = result;
+            }, error1 => this._message.error(error1.error))
+          }
+        }
+      }, error1 => this._message.error(error1.error));
     }
   }
 
   selectRecycleItem(item: OrderItem) {
     this.selectedItem = item;
+    this.itemService$.getDetailById(this.selectedItem.itemId.toString()).subscribe( result => {
+      this.item = result;
+    }, error1 => this._message.error(error1.error))
   }
 
   detectComponentSelectedStatusChange() {

@@ -1,19 +1,21 @@
 <div class="recycle-page">
   <nz-tabset [nzTabBarExtraContent]="addButton">
     <nz-tab nzTitle="全部回收记录">
-      <app-recycle-table [recycleItemList]="recycleDisplayList"></app-recycle-table>
+      <app-recycle-table (confirmEvent)="requestNewData()" [recycleItemList]="recycleDisplayList"></app-recycle-table>
     </nz-tab>
     <nz-tab nzTitle="已通过/未通过">
-      <app-recycle-table [recycleItemList]="auditedRecycleDisplayList"></app-recycle-table>
+      <app-recycle-table (confirmEvent)="requestNewData()" [recycleItemList]="auditedRecycleDisplayList"></app-recycle-table>
     </nz-tab>
     <nz-tab nzTitle="已完成">
-      <app-recycle-table [recycleItemList]="completedRecycleDisplayList"></app-recycle-table>
+      <app-recycle-table (confirmEvent)="requestNewData()" [recycleItemList]="completedRecycleDisplayList"></app-recycle-table>
     </nz-tab>
     <nz-tab nzTitle="已取消">
-      <app-recycle-table [recycleItemList]="cancelledRecycleDisplayList"></app-recycle-table>
+      <app-recycle-table (confirmEvent)="requestNewData()" [recycleItemList]="cancelledRecycleDisplayList"></app-recycle-table>
     </nz-tab>
   </nz-tabset>
   <ng-template #addButton>
     <button nz-tooltip nzTitle="我要回收" nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" (click)="openRequestRecycleModal()"><i nz-icon type="plus"></i></button>
   </ng-template>
 </div>
+
+

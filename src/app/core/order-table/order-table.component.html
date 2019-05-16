@@ -2,7 +2,7 @@
   #orderItems
   [nzData]="displayData"
   [nzFrontPagination]="false"
-  [nzTotal]="orders.length"
+  [nzTotal]="orders?.length"
   [nzPageSize]="8"
   [(nzPageIndex)]="pageIndex"
   (nzPageIndexChange)="searchData()">
@@ -22,14 +22,14 @@
     <td style="width: 300px;">
       <div nz-row>
         <div *ngFor="let orderItem of data.orderItems" nz-col nzSpan="8">
-          <img [src]="orderItem.itemImg">
+          <img [src]="orderItem.imgUrl">
         </div>
       </div>
     </td>
-    <td>￥{{data.price}}</td>
-    <td>{{data.status}}</td>
+    <td>￥{{data.price | number: '.2'}}</td>
+    <td>{{orderDisplayEnum[data.status]}}</td>
     <td>{{data.orderTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
-    <td class="operation"><i nz-tooltip nzTitle="查看订单详情" nz-icon type="file-search" (click)="showOrderDetail(data)"></i><i nz-tooltip nzTitle="申请退款" nz-icon *ngIf="data.status == '已完成'" type="dollar" (click)="refundRequested(data)"></i></td>
+    <td class="operation"><i nz-tooltip nzTitle="查看订单详情" nz-icon type="file-search" (click)="showOrderDetail(data)"></i><i nz-tooltip nzTitle="申请退款" nz-icon *ngIf="orderDisplayEnum[data.status] !== orderDisplayEnum.REFUND_REQUESTED && orderDisplayEnum[data.status] !== orderDisplayEnum.REFUND" type="dollar" (click)="refundRequested(data)"></i></td>
   </tr>
   </tbody>
 </nz-table>

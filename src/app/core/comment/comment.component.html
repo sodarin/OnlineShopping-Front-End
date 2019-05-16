@@ -1,11 +1,11 @@
-<nz-comment [nzAuthor]="comment.criticName" [nzDatetime]="comment.criticTime | date: 'yyyy-MM-dd HH:mm:ss'">
+<nz-comment [nzAuthor]="comment?.username" [nzDatetime]="comment?.commentTime | date: 'yyyy-MM-dd HH:mm:ss'">
   <nz-avatar
     nz-comment-avatar
     nzIcon="user"
     nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
   ></nz-avatar>
   <nz-comment-content>
-    <p><span *ngIf="comment.reply_criticId != null" style="color: rgba(24,144,255, .8);">回复{{replyObject.criticName}}：</span>{{comment.content}}</p>
+    <p><span *ngIf="comment?.replyCommentId != null" style="color: rgba(24,144,255, .8);">回复{{replyObject?.username}}：</span>{{comment?.content}}</p>
   </nz-comment-content>
-  <nz-comment-action><span (click)="emitReplyObject(comment.criticId)">回复</span></nz-comment-action>
+  <nz-comment-action><span (click)="emitReplyObject(comment?.commentId)">回复</span></nz-comment-action>
 </nz-comment>

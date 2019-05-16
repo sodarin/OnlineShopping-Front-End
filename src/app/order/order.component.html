@@ -1,22 +1,22 @@
 <div class="order-page">
   <nz-tabset>
     <nz-tab nzTitle="全部订单">
-      <app-order-table [orders]="orderList"></app-order-table>
+      <app-order-table (refundEvent)="requestNewData()" [orders]="orderList"></app-order-table>
     </nz-tab>
     <nz-tab nzTitle="待发货">
-      <app-order-table [orders]="pendingOrderList"></app-order-table>
+      <app-order-table (refundEvent)="requestNewData()" [orders]="pendingOrderList"></app-order-table>
     </nz-tab>
     <nz-tab nzTitle="已发货">
-      <app-order-table [orders]="shippingOrderList"></app-order-table>
+      <app-order-table (refundEvent)="requestNewData()" [orders]="shippingOrderList"></app-order-table>
     </nz-tab>
     <nz-tab nzTitle="已完成">
-      <app-order-table [orders]="completedOrderList"></app-order-table>
+      <app-order-table (refundEvent)="requestNewData()" [orders]="completedOrderList"></app-order-table>
     </nz-tab>
     <nz-tab nzTitle="申请退款">
-      <app-order-table [orders]="refundRequestedOrderList"></app-order-table>
+      <app-order-table (refundEvent)="requestNewData()" [orders]="refundRequestedOrderList"></app-order-table>
     </nz-tab>
     <nz-tab nzTitle="已退款">
-      <app-order-table [orders]="refundOrderList"></app-order-table>
+      <app-order-table (refundEvent)="requestNewData()" [orders]="refundOrderList"></app-order-table>
     </nz-tab>
   </nz-tabset>
 </div>

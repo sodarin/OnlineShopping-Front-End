@@ -11,7 +11,7 @@
         <span>{{item?.advantage}}</span>
       </div>
       <div class="item-price">
-        <span>价格： </span><span>￥{{item?.price}}</span>
+        <span>价格： </span><span>￥{{item?.price | number: '.2'}}</span>
       </div>
       <div class="item-inventory">
         <span>库存: </span><span>{{item?.inventory}}</span>

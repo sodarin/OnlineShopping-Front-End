@@ -1,36 +1,39 @@
-<div class="recycle-item-detail">
+<div class="recycle-item-detail" *ngIf="recycleItemDetail">
   <div class="item-info">
-    <div class="item-img">
-      <img [src]="recycleItemDetail.itemImg" [alt]="recycleItemDetail.itemName">
+    <div class="item-img" *ngIf="item">
+      <img [src]="item.imgUrl" [alt]="item.name">
     </div>
     <div class="item-detail">
-      <div class="item-name">{{recycleItemDetail.itemName}}</div>
-      <div class="price" *ngIf="recycleItemDetail.recyclePrice > 0">回收价：￥{{recycleItemDetail.recyclePrice}}</div>
-      <div class="price" *ngIf="recycleItemDetail.recyclePrice == 0">回收请求不能通过，原因：{{recycleItemDetail.reason}}</div>
+      <div class="item-name">{{data.itemName}}</div>
+      <div class="price" *ngIf="data.recyclePrice > 0">回收价：￥{{data.recyclePrice}}</div>
+      <div class="price" *ngIf="data.recyclePrice == 0">回收请求未通过</div>
     </div>
   </div>
   <div class="order-time">
-    <div><span style="color: #000;">购买时间：</span>{{recycleItemDetail.orderTime | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
-    <div><span style="color: #000;">申请回收时间：</span>{{recycleItemDetail.requestedTime | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+    <div><span style="color: #000;">购买时间：</span>{{recycleItemDetail.purchaseTime | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+    <div><span style="color: #000;">申请回收时间：</span>{{data.requestedTime | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+  </div>
+  <div class="general-condition">
+    <div><span style="color: #000;">商品成色：</span>{{generalCondition}}</div>
   </div>
   <div class="component">
-    <span *ngIf="recycleItemDetail.itemType == 'computer'"><span style="color: #000;">CPU:</span>{{recycleItemDetail.cpuStatus}}</span>
-    <span *ngIf="recycleItemDetail.itemType == 'computer' || recycleItemDetail.itemType == 'cellphone'"><span style="color: #000;">内存:</span>{{recycleItemDetail.memoryStatus}}</span>
-    <span *ngIf="recycleItemDetail.itemType == 'computer'"><span style="color: #000;">固态硬盘:</span>{{recycleItemDetail.ssdStatus}}</span>
-    <span *ngIf="recycleItemDetail.itemType == 'cellphone'"><span style="color: #000;">存储空间:</span>{{recycleItemDetail.ssdStatus}}</span>
-    <span *ngIf="recycleItemDetail.itemType == 'earphone'"><span style="color: #000;">声音情况:</span>{{recycleItemDetail.voiceStatus}}</span>
-    <span *ngIf="recycleItemDetail.itemType == 'earphone'"><span style="color: #000;">拆修情况:</span>{{recycleItemDetail.fixStatus}}</span>
+    <span *ngIf="data.type == 'COMPUTER'"><span style="color: #000;">CPU:</span>{{cpuStatus}}</span>
+    <span *ngIf="data.type == 'COMPUTER' || data.type == 'CELLPHONE'"><span style="color: #000;">内存:</span>{{memoryStatus}}</span>
+    <span *ngIf="data.type == 'COMPUTER'"><span style="color: #000;">固态硬盘:</span>{{ssdStatus}}</span>
+    <span *ngIf="data.type == 'CELLPHONE'"><span style="color: #000;">存储空间:</span>{{ssdStatus}}</span>
+    <span *ngIf="data.type == 'EARPHONE'"><span style="color: #000;">声音情况:</span>{{voiceStatus}}</span>
+    <span *ngIf="data.type == 'EARPHONE'"><span style="color: #000;">拆修情况:</span>{{fixStatus}}</span>
   </div>
-  <div class="item-status">
+  <div class="item-status" *ngIf="vitalProblemList && componentStatusList">
     <div class="status-title">
       <span style="color: #000; font-size: 18px;">配件情况</span>
-      <div class="component-status" *ngFor="let componentStatus of recycleItemDetail.componentReplaceStatus">
+      <div class="component-status" *ngFor="let componentStatus of componentStatusList">
         <span>{{componentStatus}}</span>
       </div>
     </div>
     <div class="problem-title">
       <span style="color: #000; font-size: 18px;">严重问题</span>
-      <div class="problem-list" *ngFor="let problem of recycleItemDetail.vitalProblem">
+      <div class="problem-list" *ngFor="let problem of vitalProblemList">
         <span>{{problem}}</span>
       </div>
     </div>

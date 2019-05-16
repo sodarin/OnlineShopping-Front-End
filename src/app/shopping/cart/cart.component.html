@@ -28,11 +28,12 @@
     #shoppingCartItems
     [nzData]="displayData"
     [nzFrontPagination]="false"
-    [nzTotal]="10"
+    [nzTotal]="total"
+    [nzLoading]="loading"
     [nzPageSize]="8"
     [(nzPageIndex)]="pageIndex"
     (nzPageIndexChange)="searchData()">
-    <thead>
+    <thead id="list-top">
       <tr>
         <th nzShowCheckbox [(nzChecked)]="isAllDataChecked" [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)">
         </th>
@@ -41,21 +42,23 @@
         <th>单价</th>
         <th>数量</th>
         <th>总价</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of shoppingCartItems.data">
-        <td nzShowCheckbox [(nzChecked)]="mapofCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
+        <td nzShowCheckbox [(nzChecked)]="mapofCheckedId[data.shoppingCartItemId]" (nzCheckedChange)="refreshStatus()"></td>
         <td (click)="turnToDetailPage(data)" class="detail-page-link"><img [src]="data.imgUrl" [alt]="data.name"></td>
         <td (click)="turnToDetailPage(data)" class="detail-page-link">{{data.name}}</td>
-        <td>￥{{data.itemPrice}}</td>
-        <td><nz-input-number [(ngModel)]="data.item_num" [nzMin]="1" [nzStep]="1" (ngModelChange)="changeTotalPrice()"></nz-input-number></td>
-        <td>￥{{data.item_num * data.itemPrice}}</td>
+        <td>￥{{data.price | number: '.2'}}</td>
+        <td><nz-input-number [(ngModel)]="data.totalNumber" [nzMin]="1" [nzStep]="1" (ngModelChange)="changeTotalPrice(data.shoppingCartItemId, data.totalNumber)"></nz-input-number></td>
+        <td>￥{{data.totalPrice | number: '.2'}}</td>
+        <td><i style="cursor: pointer;" nz-popconfirm nzTitle="确定从购物车移除此项商品吗？" (nzOnConfirm)="deleteItemFromShoppingCart(data.shoppingCartItemId)" nz-icon type="close"></i></td>
       </tr>
     </tbody>
   </nz-table>
   <div class="purchase-button">
-    <button (click)="purchase()" nz-button>提交订单<span *ngIf="totalPrice > 0">:￥{{totalPrice}}</span></button>
+    <button (click)="purchase()" nz-button>提交订单<span *ngIf="totalPrice > 0">:￥{{totalPrice | number: '.2'}}</span></button>
   </div>
 </div>
 <app-back-top></app-back-top>

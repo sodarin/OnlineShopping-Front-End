@@ -6,7 +6,7 @@
     <img [alt]="item.name" (click)="turnToDetailPage()" [src]="item.imgUrl" />
   </ng-template>
   <ng-template #actionPrice>
-    <div>￥ {{item.price}}</div>
+    <div>￥ {{item.price | number: '.2'}}</div>
   </ng-template>
   <ng-template #actionPurchase>
     <span (click)="addToShoppingCart()"><i nz-icon type="shopping-cart"></i> 购买</span>

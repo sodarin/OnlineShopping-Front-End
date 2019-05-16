@@ -2,7 +2,7 @@
   #recycleOrders
   [nzData]="displayData"
   [nzFrontPagination]="false"
-  [nzTotal]="recycleItemList.length"
+  [nzTotal]="recycleItemList?.length"
   [nzPageSize]="8"
   [(nzPageIndex)]="pageIndex"
   (nzPageIndexChange)="searchData()">
@@ -22,15 +22,22 @@
     <td>{{data.recycleOrderID}}</td>
     <td>{{data.orderId}}</td>
     <td>{{data.itemName}}</td>
-    <td *ngIf="data.recyclePrice > 0">￥{{data.recyclePrice}}</td>
-    <td *ngIf="data.recyclePrice == 0">回收请求未通过，无回收价格</td>
-    <td>{{data.status}}</td>
+    <td style="color: red" *ngIf="data.recyclePrice > 0">￥{{data.recyclePrice | number: '.2'}}</td>
+    <td style="color: red" *ngIf="data.recyclePrice == 0">回收请求未通过，无回收价格</td>
+    <td>{{recycleOrderStatus[data.status]}}</td>
     <td>{{data.requestedTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
     <td class="operation">
-      <i nz-tooltip nzTitle="查看详情" nz-icon type="file-search" (click)="showDetail(data.recycleOrderID)"></i>
-      <i nz-tooltip nzTitle="确认回收" nz-icon *ngIf="data.status == '已通过'" type="property-safety" (click)="confirmRecycle(data)"></i>
-      <i nz-tooltip nzTitle="取消" nz-icon *ngIf="data.status !== '已完成' && data.status !== '已取消' && data.status !== '未通过'" type="close-square" (click)="cancelRecycle(data)"></i>
+      <i nz-tooltip nzTitle="查看详情" nz-icon type="file-search" (click)="showDetail(data)"></i>
+      <i nz-tooltip nzTitle="确认回收" nz-icon *ngIf="recycleOrderStatus[data.status] == '已通过'" type="property-safety" (click)="confirmRecycle(data)"></i>
+      <i nz-tooltip nzTitle="取消" nz-icon *ngIf="recycleOrderStatus[data.status] !== '已完成' && recycleOrderStatus[data.status] !== '已取消' && recycleOrderStatus[data.status] !== '未通过'" type="close-square" (click)="cancelRecycle(data)"></i>
     </td>
   </tr>
   </tbody>
 </nz-table>
+
+<ng-template #customEmpty>
+  <div style="text-align: center;">
+    <i nz-icon type="smile" style="font-size: 20px;"></i>
+    <p>请先登录</p>
+  </div>
+</ng-template>

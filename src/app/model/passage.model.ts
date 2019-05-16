@@ -2,12 +2,11 @@ import {PassageComment} from './comment.model';
 
 export class Passage {
   constructor(
-    public passageId: string,
-    public authorId: string,
-    public authorName: string,
+    public passageId: number,
+    public userId: number,
+    public username: string,
     public publishTime: Date,
     public title: string,
     public content: string,
-    public commentList: PassageComment[]
   ) {}
 }

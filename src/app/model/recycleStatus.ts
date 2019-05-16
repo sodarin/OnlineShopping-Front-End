@@ -1,6 +1,6 @@
 export enum RecycleStatus {
-  PASSED = '已通过',
-  NOT_PASSED = '未通过',
-  COMPLETED = '已完成',
-  CANCELLED = '已取消'
+  PASSED = 'PASSED',
+  NOT_PASSED = 'NOT_PASSED',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED'
 }

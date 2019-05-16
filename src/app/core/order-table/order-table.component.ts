@@ -1,19 +1,27 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {Order} from '../../model/order.model';
-import {OrderItem} from '../../model/orderItem.model';
-import {NzModalRef, NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {StatusEnum} from '../../model/statusEnum.model';
 import {OrderDetailComponent} from '../modal/order-detail/order-detail.component';
+import {OrderService} from '../../service/order/order.service';
+import {OrderDisplayEnum} from '../../model/orderDisplayEnum';
 
 @Component({
   selector: 'app-order-table',
   templateUrl: './order-table.component.html',
   styleUrls: ['./order-table.component.less']
 })
-export class OrderTableComponent implements OnInit {
+export class OrderTableComponent implements OnInit, OnChanges {
+
+  orderDisplayEnum = OrderDisplayEnum;
 
   @Input()
   orders: Order[];
+
+  @Output()
+  refundEvent = new EventEmitter();
+
+  totalPrice;
 
 
   
@@ -26,24 +34,13 @@ export class OrderTableComponent implements OnInit {
   confirmModal: NzModalRef;
 
   constructor(
-    private _modal: NzModalService
+    private _modal: NzModalService,
+    private _message: NzMessageService,
+    private orderService$: OrderService,
   ) { }
 
   ngOnInit() {
-    this.orders.forEach(item => {
-      this.totalData.push({
-        id: item.orderId,
-        orderItems: item.orderItems,
-        price: item.price,
-        clientName: item.clientName,
-        clientAddr: item.clientAddr,
-        clientPhone: item.clientPhone,
-        clientPostcode: item.clientPostcode,
-        status: item.status,
-        orderTime: item.orderTime
-      })
-    });
-    this.searchData()
+
   }
 
   searchData() {
@@ -59,10 +56,13 @@ export class OrderTableComponent implements OnInit {
   refundRequested(data: any) {
     this.confirmModal = this._modal.confirm({
       nzTitle: '确认退款？',
-      nzContent: `订单编号${data.id}，总价为${data.price}，收件人姓名${data.clientName}，收件地址${data.clientAddr}`,
+      nzContent: `订单编号${data.id}，总价为${data.price.toFixed(2)}元`,
       nzOkText: '申请退款',
       nzOnOk: () => {
-        data.status = StatusEnum.REFUND_REQUESTED;
+        this.orderService$.updateOrderStatus(data.id, StatusEnum.REFUND_REQUESTED).subscribe( result => {
+          this._message.success("申请成功！");
+          this.refundEvent.emit();
+        }, error1 => this._message.error(error1.error))
       },
       nzCancelText: '取消'
     })
@@ -77,6 +77,32 @@ export class OrderTableComponent implements OnInit {
       },
       nzFooter: null
     })
+  }
+
+  ngOnChanges() {
+    this.totalData = [];
+    if (this.orders) {
+      this.orders.forEach(item => {
+        this.totalData.push({
+          id: item.orderId,
+          addressId: item.addressId,
+          userId: item.userId,
+          orderItems: item.orderItemDetails,
+          price: 0,
+          status: item.status,
+          orderTime: item.tradingTime
+        })
+      });
+      this.totalData.forEach(item => {
+        this.totalPrice = 0;
+        item.orderItems.forEach(order => {
+          this.totalPrice += order.price * order.number
+        });
+        item.price = this.totalPrice
+      });
+      this.totalData = [...this.totalData];
+      this.searchData()
+    }
   }
 
 }

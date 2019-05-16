@@ -1,18 +1,28 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {RecycleItemDisplay} from '../../model/recycleOrder.model';
-import {NzModalRef, NzModalService} from 'ng-zorro-antd';
+import {NzEmptyService, NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {RecycleStatus} from '../../model/recycleStatus';
 import {ShowRecycleDetailComponent} from '../modal/show-recycle-detail/show-recycle-detail.component';
+import {LoginService} from '../../service/login/login.service';
+import {RecycleDisplayEnum} from '../../model/recycleDisplayEnum';
+import {RecycleService} from '../../service/recycle/recycle.service';
 
 @Component({
   selector: 'app-recycle-table',
   templateUrl: './recycle-table.component.html',
   styleUrls: ['./recycle-table.component.less']
 })
-export class RecycleTableComponent implements OnInit {
+export class RecycleTableComponent implements OnInit, OnChanges {
+
+  recycleOrderStatus = RecycleDisplayEnum;
 
   @Input()
   recycleItemList: RecycleItemDisplay[];
+
+  @Output()
+  confirmEvent = new EventEmitter();
+
+  @ViewChild('customEmpty') customTpl: TemplateRef<any>;
 
   displayData: any[] = [];
   totalData: any[] = [];
@@ -21,22 +31,38 @@ export class RecycleTableComponent implements OnInit {
 
   confirmModal: NzModalRef;
   constructor(
-    private _modal: NzModalService
+    private _modal: NzModalService,
+    private nzEmptyService: NzEmptyService,
+    private loginService$: LoginService,
+    private recycleService$: RecycleService,
+    private _message: NzMessageService
   ) { }
 
   ngOnInit() {
-    this.recycleItemList.forEach(item => {
-      this.totalData.push({
-        recycleOrderID: item.recycleOrderId,
-        orderId: item.orderId,
-        itemId: item.itemId,
-        itemName: item.itemName,
-        recyclePrice: item.recyclePrice,
-        status: item.status,
-        requestedTime: item.requestedTime,
-      })
-    });
-    this.searchData()
+
+  }
+
+  ngOnChanges() {
+    this.totalData = [];
+    if (this.recycleItemList) {
+      this.recycleItemList.forEach(item => {
+        this.totalData.push({
+          recycleOrderID: item.recycleOrderId,
+          orderId: item.orderId,
+          itemId: item.itemId,
+          userId: item.userId,
+          itemName: item.name,
+          recyclePrice: item.recyclePrice,
+          status: item.status,
+          requestedTime: item.requestedTime,
+          type: item.type
+        })
+      });
+      this.searchData()
+    } else {
+      if (!this.loginService$.user)
+        this.nzEmptyService.setDefaultContent(this.customTpl);
+    }
   }
 
   searchData() {
@@ -49,12 +75,12 @@ export class RecycleTableComponent implements OnInit {
     }
   }
 
-  showDetail(id: string) {
+  showDetail(data: any) {
     this._modal.create({
       nzTitle: '回收产品详情',
       nzContent: ShowRecycleDetailComponent,
       nzComponentParams: {
-        recycleOrderId: id
+        data: data
       },
       nzFooter: null
     })
@@ -63,10 +89,13 @@ export class RecycleTableComponent implements OnInit {
   confirmRecycle(data: any) {
     this.confirmModal = this._modal.confirm({
       nzTitle: '确认回收？',
-      nzContent: `原订单编号${data.orderId}，商品名${data.itemName}，回收价格为${data.recyclePrice}`,
+      nzContent: `原订单编号${data.orderId}，商品名${data.itemName}，回收价格为${data.recyclePrice.toFixed(2)}`,
       nzOkText: '确定回收',
       nzOnOk: () => {
-        data.status = RecycleStatus.COMPLETED
+        this.recycleService$.updateRecycleStatus(data.recycleOrderID, RecycleStatus.COMPLETED).subscribe( result => {
+          this._message.success("回收成功！");
+          this.confirmEvent.emit()
+        }, error1 => this._message.error(error1.error))
       },
       nzCancelText: '取消'
     })
@@ -75,10 +104,13 @@ export class RecycleTableComponent implements OnInit {
   cancelRecycle(data: any) {
     this.confirmModal = this._modal.confirm({
       nzTitle: '是否取消回收？',
-      nzContent: `回收订单编号${data.recycleOrderID}，商品名${data.itemName}，回收价格为${data.recyclePrice}`,
+      nzContent: `回收订单编号${data.recycleOrderID}，商品名${data.itemName}，回收价格为${data.recyclePrice.toFixed(2)}`,
       nzOkText: '取消回收',
       nzOnOk: () => {
-        data.status = RecycleStatus.CANCELLED
+        this.recycleService$.updateRecycleStatus(data.recycleOrderID, RecycleStatus.CANCELLED).subscribe( result => {
+          this._message.success("取消回收请求成功！");
+          this.confirmEvent.emit()
+        }, error1 => this._message.error(error1.error))
       },
       nzCancelText: '关闭窗口'
     })
